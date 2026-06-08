@@ -15,6 +15,7 @@ Each day is published under `docs/day-XX/`. Every day folder contains focused to
 | 3 | Design Task: Parking Lot | [docs/day-03](./docs/day-03/) |
 | 4 | What Happens When You Visit a Website | [docs/day-04](./docs/day-04/) |
 | 5 | Core Infrastructure Components (DNS, LB, CDN, Caching, DB Scaling, Queue, Workers) | [docs/day-05](./docs/day-05/) |
+| 6 | Database Internals (Storage, Keys, Indexes, Transactions, ORM, Replication, Sharding) | [docs/day-06](./docs/day-06/) |
 
 ## Structure
 
@@ -59,4 +60,18 @@ system-design/
         ├── 06-db-scaling.md
         ├── 07-queue.md
         └── 08-microservices-and-workers.md
+    └── day-06/
+        ├── README.md
+        ├── 01-storage-basics.md
+        ├── 02-keys.md
+        ├── 03-normalization.md
+        ├── 04-indexes.md
+        ├── 05-joins-and-lookups.md
+        ├── 06-query-execution.md
+        ├── 07-transactions.md
+        ├── 08-orm.md
+        ├── 09-n-plus-one-query-problems.md
+        ├── 10-connection-pooling.md
+        ├── 11-replication.md
+        └── 12-sharding.md
 ```
