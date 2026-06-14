@@ -17,6 +17,7 @@ Each day is published under `docs/day-XX/`. Every day folder contains focused to
 | 5 | Core Infrastructure Components (DNS, LB, CDN, Caching, DB Scaling, Queue, Workers) | [docs/day-05](./docs/day-05/) |
 | 6 | Database Internals (Storage, Keys, Indexes, Transactions, ORM, Replication, Sharding) | [docs/day-06](./docs/day-06/) |
 | 7 | Caching Deep Dive (Patterns, Invalidation, TTL, Redis, Cache Problems) | [docs/day-07](./docs/day-07/) |
+| 8 | Message Queues Deep Dive (Models, Guarantees, Patterns, Kafka, SQS) | [docs/day-08](./docs/day-08/) |
 
 ## Structure
 
@@ -89,4 +90,18 @@ system-design/
         ├── 10-distributed-cache.md
         ├── 11-cache-problems.md
         └── 12-other-patterns-and-best-practices.md
+    └── day-08/
+        ├── README.md
+        ├── 01-why-queues.md
+        ├── 02-what-is-a-message-queue.md
+        ├── 03-sync-vs-async-communication.md
+        ├── 04-queue-pubsub-and-streams.md
+        ├── 05-core-components.md
+        ├── 06-message-design.md
+        ├── 07-delivery-guarantees.md
+        ├── 08-ordering-and-partitioning.md
+        ├── 09-consumers-and-scaling.md
+        ├── 10-retry-dlq-and-idempotency.md
+        ├── 11-queue-patterns.md
+        └── 12-tools-operations-and-tradeoffs.md
 ```
