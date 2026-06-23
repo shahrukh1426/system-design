@@ -1,4 +1,4 @@
-# Database Internals — Answer Key & Explanations (30)
+# Database Internals — Answer Key & Explanations (50)
 
 Answer key for [day-06-questions.md](../day-06-questions.md)
 
@@ -241,5 +241,165 @@ Answer key for [day-06-questions.md](../day-06-questions.md)
 **Answer:** A, B
 
 **Explanation:** Resharding is hard; consistent hashing helps. It is not zero-planning nor “shard first” (C, D).
+
+---
+
+### Q31 [Easy] [Case Study] — LedgerFlow Deep Page Pagination
+
+**Answer:** A, B
+
+**Explanation:** Deep `OFFSET` scans and discards rows; keyset pagination avoids that. Bigger pools and page-only caching do not fix OFFSET cost (C, D).
+
+---
+
+### Q32 [Easy] — Foreign Key Cascades
+
+**Answer:** A, B, D
+
+**Explanation:** FKs enforce integrity at the DB layer; cascade can be appropriate. Application-only checks are not a universal replacement (C).
+
+---
+
+### Q33 [Easy] [Case Study] — LedgerFlow Hot Wallet Row
+
+**Answer:** A, B, D
+
+**Explanation:** Same-row updates serialize on locks. Replicas scale reads, not primary writes (C).
+
+---
+
+### Q34 [Easy] — MVCC and Vacuum
+
+**Answer:** A, B, D
+
+**Explanation:** MVCC reduces reader/writer blocking but still uses locks for writes; old versions need vacuum (C).
+
+---
+
+### Q35 [Easy] [Case Study] — LedgerFlow Autovacuum Lag
+
+**Answer:** A, B, D
+
+**Explanation:** Dead tuples and blocked vacuum hurt performance. `DELETE` alone does not always shrink files immediately (C).
+
+---
+
+### Q36 [Easy] — Narrow SELECT Projections
+
+**Answer:** A, B, D
+
+**Explanation:** Narrow projections reduce I/O and improve page density. Less app code does not make `SELECT *` faster (C).
+
+---
+
+### Q37 [Medium] [Case Study] — LedgerFlow Payment Idempotency
+
+**Answer:** A, B, D
+
+**Explanation:** Idempotency keys with UNIQUE and upsert patterns prevent duplicates. Webhooks are at-least-once — app must handle retries (C).
+
+---
+
+### Q38 [Medium] — Optimistic vs Pessimistic Locking
+
+**Answer:** A, B, D
+
+**Explanation:** Pessimistic locks, optimistic versioning, and conditional atomic UPDATE all prevent oversell. Read Committed alone does not (C).
+
+---
+
+### Q39 [Medium] [Case Study] — LedgerFlow Idle in Transaction
+
+**Answer:** A, B, D
+
+**Explanation:** Long open transactions exhaust pools and hold resources. `idle in transaction` is dangerous under load (C).
+
+---
+
+### Q40 [Medium] — Declarative Partitioning
+
+**Answer:** A, B, D
+
+**Explanation:** Pruning helps range queries on one server. Partitioning ≠ multi-node sharding and does not auto-distribute across machines (C).
+
+---
+
+### Q41 [Medium] [Case Study] — LedgerFlow Correlated Subquery
+
+**Answer:** A, B, D
+
+**Explanation:** Correlated subqueries can run per outer row; rewrite and EXPLAIN confirm. They are not universally faster than JOINs (C).
+
+---
+
+### Q42 [Medium] — Index Selectivity and Seq Scans
+
+**Answer:** A, B, D
+
+**Explanation:** Low selectivity and tiny tables can favor seq scans. Distinguish valid plans from stale-stats mistakes (C).
+
+---
+
+### Q43 [Medium] [Case Study] — LedgerFlow Peak-Hour DDL
+
+**Answer:** A, B, D
+
+**Explanation:** Large-table DDL can lock or rewrite. Phased and online migrations reduce peak risk — not all ADD COLUMN is instant (C).
+
+---
+
+### Q44 [Medium] — Savepoints
+
+**Answer:** A, B, D
+
+**Explanation:** Savepoints enable partial rollback within a transaction. They do not auto-commit the transaction (C).
+
+---
+
+### Q45 [Hard] [Case Study] — LedgerFlow Budget Write Skew
+
+**Answer:** A, B, D
+
+**Explanation:** Non-serializable interleaving causes write skew. Serializable or explicit locking fixes it; Read Committed does not always (C).
+
+---
+
+### Q46 [Hard] — BRIN and Time-Series Data
+
+**Answer:** A, B, D
+
+**Explanation:** BRIN suits ordered append-heavy time data; combine with partitioning. Statistics still matter (C).
+
+---
+
+### Q47 [Hard] [Case Study] — LedgerFlow Failover Data Loss
+
+**Answer:** A, B, D
+
+**Explanation:** Async failover can lose recent commits — RPO is not zero. Promotion is not automatic 100% preservation (C).
+
+---
+
+### Q48 [Hard] — GIN Indexes and JSONB
+
+**Answer:** A, B, D
+
+**Explanation:** GIN supports containment; scalar btree suits single-field equality. GIN does not speed every JSON path (C).
+
+---
+
+### Q49 [Hard] [Case Study] — LedgerFlow Modulo Resharding
+
+**Answer:** A, B, D
+
+**Explanation:** Mod-N resharding is painful; consistent hashing reduces movement. Migration still needs planning — not zero-downtime by default (C).
+
+---
+
+### Q50 [Hard] — Join Algorithms
+
+**Answer:** A, B, D
+
+**Explanation:** Planner picks nested loop, hash, or merge based on size, indexes, and sort order — not always nested loop (C).
 
 ---

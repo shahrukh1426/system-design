@@ -1,4 +1,4 @@
-# Database Internals — MCQ Questions (30)
+# Database Internals — MCQ Questions (50)
 
 Multi-select format: each question has **two or more** correct answers. Questions tagged **[Case Study]** include a business context block.
 
@@ -421,5 +421,285 @@ Which statements about resharding are correct?
 - [ ] B. Consistent hashing minimizes data movement when adding nodes compared to naive hash mod N
 - [ ] C. Resharding is a one-click operation in all sharded databases with zero planning
 - [ ] D. Shard early before optimizing queries, caching, and read replicas — always shard first
+
+---
+
+### Q31 [Easy] [Case Study] — LedgerFlow Deep Page Pagination
+
+**Context:** LedgerFlow's `/transactions?page=5000` uses `LIMIT 50 OFFSET 250000`. Page 1 returns in 40 ms; page 5000 takes 4.2 seconds.
+
+**Select all that apply.**
+
+What explains the slowdown and which fixes are sound?
+
+- [ ] A. `OFFSET` forces the database to scan and discard skipped rows — cost grows with page depth
+- [ ] B. Keyset pagination on `(created_at, id)` avoids large offsets for "next page" flows
+- [ ] C. Wrapping the same query in a larger connection pool eliminates OFFSET scan cost
+- [ ] D. Caching only page 5000 in Redis fixes the root SQL cost for every deep-page request pattern
+
+---
+
+### Q32 [Easy] — Foreign Key Cascades
+
+**Select all that apply.**
+
+You model `orders` with child `order_items` using foreign keys. Which practices are sound?
+
+- [ ] A. `ON DELETE CASCADE` on line items when a parent order is removed can be appropriate
+- [ ] B. Foreign key constraints enforce referential integrity at the database layer
+- [ ] C. Application-only checks should replace foreign keys in all production systems
+- [ ] D. Child rows cannot reference a missing parent when the FK is enforced
+
+---
+
+### Q33 [Easy] [Case Study] — LedgerFlow Hot Wallet Row
+
+**Context:** LedgerFlow runs 200 concurrent `UPDATE accounts SET balance = balance - X WHERE id = 1` against a single promo wallet. P99 latency spikes to 8 seconds even though each isolated query is under 2 ms.
+
+**Select all that apply.**
+
+What explains contention and which responses are valid?
+
+- [ ] A. Row-level locks serialize concurrent updates to the same row
+- [ ] B. Hot-row write contention is distinct from a missing-index problem
+- [ ] C. Adding read replicas removes write lock contention on the primary
+- [ ] D. Sharding by `account_id`, per-wallet queues, or batching debits can spread hot-row load
+
+---
+
+### Q34 [Easy] — MVCC and Vacuum
+
+**Select all that apply.**
+
+Which statements about MVCC (multi-version concurrency control) are correct?
+
+- [ ] A. Readers typically do not block writers and writers do not block readers
+- [ ] B. `UPDATE` creates a new row version; old versions remain until vacuum reclaims them
+- [ ] C. MVCC eliminates the need for any locks in the database
+- [ ] D. Long-running transactions can delay vacuum and contribute to table bloat
+
+---
+
+### Q35 [Easy] [Case Study] — LedgerFlow Autovacuum Lag
+
+**Context:** LedgerFlow's `transactions` table shows 45% dead tuples. Autovacuum has not run in 18 hours. A previously fast dashboard query is suddenly 10× slower.
+
+**Select all that apply.**
+
+What likely happened and what should ops monitor?
+
+- [ ] A. Dead tuples bloat the table and increase I/O per live row
+- [ ] B. Long `idle in transaction` sessions can block vacuum from reclaiming space
+- [ ] C. `DELETE` without vacuum instantly shrinks the on-disk file size in all databases
+- [ ] D. Track `n_dead_tup`, autovacuum lag, and sessions stuck `idle in transaction`
+
+---
+
+### Q36 [Easy] — Narrow SELECT Projections
+
+**Select all that apply.**
+
+Which practices reduce database load for list endpoints?
+
+- [ ] A. Select only columns the API returns — avoid `SELECT *` on wide tables
+- [ ] B. Narrower projections fit more rows per page and improve buffer pool efficiency
+- [ ] C. `SELECT *` is always faster because it needs less application mapping code
+- [ ] D. DTO or projection queries decouple API response fields from full table width
+
+---
+
+### Q37 [Medium] [Case Study] — LedgerFlow Payment Idempotency
+
+**Context:** LedgerFlow's payment webhook may retry up to 5 times. Without idempotency handling, duplicate `INSERT INTO payments` rows appear for one charge.
+
+**Select all that apply.**
+
+How should duplicate webhook delivery be handled?
+
+- [ ] A. `UNIQUE` constraint on `idempotency_key` prevents duplicate business writes
+- [ ] B. `INSERT ... ON CONFLICT DO NOTHING` (or equivalent) supports idempotent recording
+- [ ] C. Network-layer exactly-once delivery eliminates the need for application idempotency
+- [ ] D. Check idempotency before side effects, ideally inside the same database transaction
+
+---
+
+### Q38 [Medium] — Optimistic vs Pessimistic Locking
+
+**Select all that apply.**
+
+Inventory must not oversell 10 units when 50 checkouts run concurrently. Which approaches are valid?
+
+- [ ] A. `SELECT ... FOR UPDATE` on the inventory row is pessimistic locking
+- [ ] B. Optimistic locking with a `version` column retries on conflict
+- [ ] C. Read Committed isolation alone prevents lost updates without explicit locking or atomic `UPDATE`
+- [ ] D. `UPDATE inventory SET qty = qty - 1 WHERE id = ? AND qty > 0` is atomic at the row level
+
+---
+
+### Q39 [Medium] [Case Study] — LedgerFlow Idle in Transaction
+
+**Context:** LedgerFlow opens a transaction, loads an order, calls an external fraud API for 30 seconds, then commits. During traffic, 48 of 50 pool connections show `idle in transaction`.
+
+**Select all that apply.**
+
+What is wrong and what should change?
+
+- [ ] A. Holding transactions open during external I/O exhausts connections and can hold locks
+- [ ] B. Do non-database work outside the transaction; keep transaction scope minimal
+- [ ] C. `idle in transaction` is harmless because the session uses no CPU
+- [ ] D. Use `statement_timeout` and alert on `state = 'idle in transaction'` in metrics
+
+---
+
+### Q40 [Medium] — Declarative Partitioning
+
+**Select all that apply.**
+
+LedgerFlow archives transactions by month on one PostgreSQL cluster using declarative partitioning.
+
+- [ ] A. Partition pruning can skip irrelevant partitions for date-range queries
+- [ ] B. Single-server partitioning is not the same as multi-node horizontal sharding
+- [ ] C. Declarative partitioning automatically spreads writes across different physical servers
+- [ ] D. Partition key choice should align with common query filters (e.g., `created_at`)
+
+---
+
+### Q41 [Medium] [Case Study] — LedgerFlow Correlated Subquery
+
+**Context:** A LedgerFlow report runs `SELECT * FROM accounts a WHERE balance > (SELECT AVG(balance) FROM accounts WHERE region = a.region)`. Runtime is 12 minutes on 2M rows.
+
+**Select all that apply.**
+
+What explains the cost and what are valid improvements?
+
+- [ ] A. Correlated subqueries can execute the inner query once per outer row
+- [ ] B. Rewriting with window functions or a JOIN to pre-aggregated regional averages can help
+- [ ] C. Correlated subqueries are always faster than equivalent JOINs at scale
+- [ ] D. `EXPLAIN ANALYZE` helps confirm per-row nested execution
+
+---
+
+### Q42 [Medium] — Index Selectivity and Seq Scans
+
+**Select all that apply.**
+
+When might the optimizer correctly choose a sequential scan over an index?
+
+- [ ] A. When a large fraction of the table matches the predicate (low selectivity)
+- [ ] B. When the table is small enough that reading the whole heap is cheaper than index plus random lookups
+- [ ] C. Sequential scans are always a planner bug — indexes should always be preferred
+- [ ] D. Stale statistics can cause wrong plans — distinguish bad stats from a valid seq scan choice
+
+---
+
+### Q43 [Medium] [Case Study] — LedgerFlow Peak-Hour DDL
+
+**Context:** LedgerFlow runs `ALTER TABLE transactions ADD COLUMN status VARCHAR(20) DEFAULT 'PENDING'` on 400M rows during peak traffic. Writes block for 6 minutes.
+
+**Select all that apply.**
+
+What explains the outage risk and what are safer practices?
+
+- [ ] A. Some DDL operations take strong locks or rewrite tables depending on engine and version
+- [ ] B. Multi-phase migrations (add nullable column, backfill, then enforce) reduce peak blocking
+- [ ] C. Every `ADD COLUMN` with a default is instant metadata-only on all row counts and engines
+- [ ] D. Heavy DDL belongs in maintenance windows or managed online schema-change workflows
+
+---
+
+### Q44 [Medium] — Savepoints
+
+**Select all that apply.**
+
+Which statements about `SAVEPOINT` are correct?
+
+- [ ] A. `SAVEPOINT` allows rolling back part of a transaction while keeping earlier work in the same transaction
+- [ ] B. Savepoints do not replace proper transaction boundaries around external HTTP calls
+- [ ] C. `RELEASE SAVEPOINT` auto-commits the entire transaction — `COMMIT` is unnecessary afterward
+- [ ] D. Heavy savepoint use in application code often signals unclear error-handling design
+
+---
+
+### Q45 [Hard] [Case Study] — LedgerFlow Budget Write Skew
+
+**Context:** Two LedgerFlow analysts run concurrent jobs that read and update separate budget rows. Interleaved reads produce totals that do not match any serial execution order.
+
+**Select all that apply.**
+
+What describes this and what are valid mitigations?
+
+- [ ] A. This is a serializability anomaly — the outcome is not equivalent to any serial order
+- [ ] B. Serializable isolation or explicit locking on the invariant rows can prevent it
+- [ ] C. Read Committed always prevents write skew on multi-row invariants
+- [ ] D. Document which invariants require Serializable isolation vs optimistic concurrency
+
+---
+
+### Q46 [Hard] — BRIN and Time-Series Data
+
+**Select all that apply.**
+
+LedgerFlow stores 2B time-ordered events in PostgreSQL. Which index strategies are appropriate?
+
+- [ ] A. BRIN on `created_at` can be compact for naturally ordered, append-mostly data
+- [ ] B. B-tree on timestamp alone is valid but often much larger than BRIN for range scans on ordered data
+- [ ] C. BRIN removes the need for table statistics and `ANALYZE`
+- [ ] D. Time partitioning plus BRIN or partition pruning is a common time-series pattern
+
+---
+
+### Q47 [Hard] [Case Study] — LedgerFlow Failover Data Loss
+
+**Context:** LedgerFlow's primary fails. Ops promotes a replica. Twelve seconds of commits that succeeded on the primary are missing on the promoted replica.
+
+**Select all that apply.**
+
+What explains the gap and what belongs in the runbook?
+
+- [ ] A. Async replication allowed lag; the promoted replica may trail the last primary commits
+- [ ] B. RPO depends on replication mode and failover process — not zero for async setups
+- [ ] C. Promoting a replica always preserves 100% of primary commits automatically
+- [ ] D. Define failover criteria, lag checks, and split-brain prevention in the runbook
+
+---
+
+### Q48 [Hard] — GIN Indexes and JSONB
+
+**Select all that apply.**
+
+LedgerFlow queries `metadata @> '{"tier": "gold"}'` on a JSONB column millions of times per day.
+
+- [ ] A. GIN index on JSONB supports containment operators like `@>`
+- [ ] B. GIN on the full JSONB document differs from a btree on one extracted scalar field
+- [ ] C. JSONB GIN indexes accelerate every JSON access pattern, including unindexed keys
+- [ ] D. Expression btree on `(metadata->>'tier')` may suffice for equality on that one field only
+
+---
+
+### Q49 [Hard] [Case Study] — LedgerFlow Modulo Resharding
+
+**Context:** LedgerFlow sharded with `shard = user_id % 4`. Growing to 8 shards requires rehashing most keys. The team evaluates consistent hashing.
+
+**Select all that apply.**
+
+Which statements about resharding are correct?
+
+- [ ] A. Naive mod-N resharding moves most keys when N changes
+- [ ] B. Consistent hashing limits key movement when adding shards compared to naive mod-N
+- [ ] C. Mod-4 to mod-8 migration is always zero-downtime with no dual-write phase
+- [ ] D. Avoid coupling application config deeply to a fixed physical shard count without a migration plan
+
+---
+
+### Q50 [Hard] — Join Algorithms
+
+**Select all that apply.**
+
+Which statements about how the planner picks join algorithms are correct?
+
+- [ ] A. Nested loop with an index seek on the inner table is efficient for a small outer side and selective joins
+- [ ] B. Hash join often wins for large equi-joins without helpful indexes on both sides
+- [ ] C. The planner always prefers nested loop because it is the default for all join sizes
+- [ ] D. Merge join can be efficient when both inputs are sorted on the join keys
 
 ---

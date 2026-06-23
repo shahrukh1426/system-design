@@ -1,8 +1,8 @@
 # System Design MCQ Bank — Days 1–9 Topics
 
-220 **multi-select** practice questions (select all that apply). Each question has **two or more** correct answers.
+240 **multi-select** practice questions (select all that apply). Each question has **two or more** correct answers.
 
-Questions are **real-world**, **scenario-based**, and include **96 case studies** with a business context block. No course-meta framing ("according to the curriculum", "Day 3", etc.).
+Questions are **real-world**, **scenario-based**, and include **106 case studies** with a business context block. No course-meta framing ("according to the curriculum", "Day 3", etc.).
 
 Validated: [validation-report.md](./validation-report.md)
 
@@ -14,9 +14,9 @@ Validated: [validation-report.md](./validation-report.md)
 
 | Type | Count | How to recognize |
 |------|-------|------------------|
-| **Case study** | 96 | Title includes `[Case Study]` + `**Context:**` block (company, metrics, incident) |
-| **Scenario** | ~70 | 1–2 sentence situational stem |
-| **Technical** | ~54 | Direct engineering question in production context |
+| **Case study** | 106 | Title includes `[Case Study]` + `**Context:**` block (company, metrics, incident) |
+| **Scenario** | ~74 | 1–2 sentence situational stem |
+| **Technical** | ~60 | Direct engineering question in production context |
 
 ---
 
@@ -41,11 +41,11 @@ assessments/
 | [day-03-questions.md](./day-03-questions.md) → [answers](./answer-key/day-03-answers.md) | Parking Lot (LLD) | 10 | 5 | 3 | 4 | 3 |
 | [day-04-questions.md](./day-04-questions.md) → [answers](./answer-key/day-04-answers.md) | Website Request Lifecycle | 14 | 5 | 5 | 5 | 4 |
 | [day-05-questions.md](./day-05-questions.md) → [answers](./answer-key/day-05-answers.md) | Infrastructure Components | 30 | 15 | 10 | 10 | 10 |
-| [day-06-questions.md](./day-06-questions.md) → [answers](./answer-key/day-06-answers.md) | Database Internals | 30 | 13 | 9 | 12 | 9 |
+| [day-06-questions.md](./day-06-questions.md) → [answers](./answer-key/day-06-answers.md) | Database Internals | 50 | 23 | 15 | 20 | 15 |
 | [day-07-questions.md](./day-07-questions.md) → [answers](./answer-key/day-07-answers.md) | Caching Deep Dive | 30 | 14 | 9 | 13 | 8 |
 | [day-08-questions.md](./day-08-questions.md) → [answers](./answer-key/day-08-answers.md) | Message Queues Deep Dive | 30 | 14 | 9 | 13 | 8 |
 | [day-09-questions.md](./day-09-questions.md) → [answers](./answer-key/day-09-answers.md) | Reliability & Fault Tolerance | 30 | 15 | 9 | 13 | 8 |
-| **Total** | | **220** | **96** | **69** | **86** | **65** |
+| **Total** | | **240** | **106** | **75** | **94** | **71** |
 
 ---
 
@@ -105,9 +105,10 @@ Several questions reuse fictional companies so you can follow a narrative arc:
 | Parking lot LLD | day-03 | Q01–Q08 |
 | Browser → DNS → render | day-04 | Q01, Q06, Q11 |
 | DNS, LB, CDN, queues | day-05 | Q01–Q09, Q20–Q25 |
-| Storage, indexes, ACID | day-06 | Q01, Q04, Q09, Q23 |
-| ORM N+1, pooling, replication | day-06 | Q11, Q13, Q15 |
-| Sharding, sagas | day-06 | Q17, Q20, Q30 |
+| Storage, indexes, ACID | day-06 | Q01, Q04, Q09, Q23, Q34, Q42 |
+| ORM N+1, pooling, replication | day-06 | Q11, Q13, Q15, Q39, Q47 |
+| Sharding, sagas | day-06 | Q17, Q20, Q30, Q49 |
+| MVCC, vacuum, pagination | day-06 | Q31, Q35, Q43 |
 | Cache-aside, write-through | day-07 | Q07–Q09, Q21 |
 | Stampede, penetration, avalanche | day-07 | Q13–Q15 |
 | Queue vs pub/sub vs stream | day-08 | Q04, Q05 |

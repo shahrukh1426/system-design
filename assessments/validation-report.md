@@ -37,7 +37,7 @@
 | [day-03-questions.md](./day-03-questions.md) | [answer-key/day-03-answers.md](./answer-key/day-03-answers.md) | 10 | 5 | 3 | 4 | 3 |
 | [day-04-questions.md](./day-04-questions.md) | [answer-key/day-04-answers.md](./answer-key/day-04-answers.md) | 14 | 5 | 5 | 5 | 4 |
 | [day-05-questions.md](./day-05-questions.md) | [answer-key/day-05-answers.md](./answer-key/day-05-answers.md) | 30 | 15 | 10 | 10 | 10 |
-| [day-06-questions.md](./day-06-questions.md) | [answer-key/day-06-answers.md](./answer-key/day-06-answers.md) | 30 | 13 | 9 | 12 | 9 |
+| [day-06-questions.md](./day-06-questions.md) | [answer-key/day-06-answers.md](./answer-key/day-06-answers.md) | 50 | 23 | 15 | 20 | 15 |
 | [day-07-questions.md](./day-07-questions.md) | [answer-key/day-07-answers.md](./answer-key/day-07-answers.md) | 30 | 14 | 9 | 13 | 8 |
 | [day-08-questions.md](./day-08-questions.md) | [answer-key/day-08-answers.md](./answer-key/day-08-answers.md) | 30 | 14 | 9 | 13 | 8 |
 | [day-09-questions.md](./day-09-questions.md) | [answer-key/day-09-answers.md](./answer-key/day-09-answers.md) | 30 | 15 | 9 | 13 | 8 |
@@ -64,17 +64,19 @@ Days 6–9 difficulty targets ~10/10/10 per file; actual ~9/13/8 — acceptable 
 
 | Topic | Question IDs |
 |-------|--------------|
-| Storage / WAL / pages | Q01, Q21, Q25 |
-| Keys / normalization | Q02, Q03, Q26, Q29 |
-| Indexes / planner | Q04, Q07, Q23, Q24 |
-| Joins | Q05, Q06 |
-| Transactions / isolation | Q09, Q10, Q19 |
-| ORM / N+1 | Q11, Q12, Q27 |
-| Connection pooling | Q13, Q14 |
-| Replication | Q15, Q16 |
-| Sharding | Q17, Q18, Q28, Q30 |
+| Storage / WAL / pages | Q01, Q21, Q25, Q34, Q35 |
+| Keys / normalization | Q02, Q03, Q26, Q29, Q32 |
+| Indexes / planner | Q04, Q07, Q23, Q24, Q42, Q46, Q48, Q50 |
+| Joins | Q05, Q06, Q41 |
+| Transactions / isolation | Q09, Q10, Q19, Q38, Q44, Q45 |
+| ORM / N+1 | Q11, Q12, Q27, Q36 |
+| Connection pooling | Q13, Q14, Q39 |
+| Replication | Q15, Q16, Q47 |
+| Sharding | Q17, Q18, Q28, Q30, Q40, Q49 |
 | Sagas / distributed tx | Q20 |
 | Analytics / OLTP split | Q22 |
+| Pagination / hot rows / idempotency | Q31, Q33, Q37 |
+| DDL / migrations | Q43 |
 
 ### Caching Deep Dive (day-07)
 
