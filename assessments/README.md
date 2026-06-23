@@ -1,8 +1,8 @@
 # System Design MCQ Bank — Days 1–9 Topics
 
-240 **multi-select** practice questions (select all that apply). Each question has **two or more** correct answers.
+300 **multi-select** practice questions (select all that apply). Each question has **two or more** correct answers.
 
-Questions are **real-world**, **scenario-based**, and include **106 case studies** with a business context block. No course-meta framing ("according to the curriculum", "Day 3", etc.).
+Questions are **real-world**, **scenario-based**, and include **136 case studies** with a business context block. No course-meta framing ("according to the curriculum", "Day 3", etc.).
 
 Validated: [validation-report.md](./validation-report.md)
 
@@ -14,9 +14,9 @@ Validated: [validation-report.md](./validation-report.md)
 
 | Type | Count | How to recognize |
 |------|-------|------------------|
-| **Case study** | 106 | Title includes `[Case Study]` + `**Context:**` block (company, metrics, incident) |
-| **Scenario** | ~74 | 1–2 sentence situational stem |
-| **Technical** | ~60 | Direct engineering question in production context |
+| **Case study** | 136 | Title includes `[Case Study]` + `**Context:**` block (company, metrics, incident) |
+| **Scenario** | ~94 | 1–2 sentence situational stem |
+| **Technical** | ~70 | Direct engineering question in production context |
 
 ---
 
@@ -42,10 +42,10 @@ assessments/
 | [day-04-questions.md](./day-04-questions.md) → [answers](./answer-key/day-04-answers.md) | Website Request Lifecycle | 14 | 5 | 5 | 5 | 4 |
 | [day-05-questions.md](./day-05-questions.md) → [answers](./answer-key/day-05-answers.md) | Infrastructure Components | 30 | 15 | 10 | 10 | 10 |
 | [day-06-questions.md](./day-06-questions.md) → [answers](./answer-key/day-06-answers.md) | Database Internals | 50 | 23 | 15 | 20 | 15 |
-| [day-07-questions.md](./day-07-questions.md) → [answers](./answer-key/day-07-answers.md) | Caching Deep Dive | 30 | 14 | 9 | 13 | 8 |
-| [day-08-questions.md](./day-08-questions.md) → [answers](./answer-key/day-08-answers.md) | Message Queues Deep Dive | 30 | 14 | 9 | 13 | 8 |
-| [day-09-questions.md](./day-09-questions.md) → [answers](./answer-key/day-09-answers.md) | Reliability & Fault Tolerance | 30 | 15 | 9 | 13 | 8 |
-| **Total** | | **240** | **106** | **75** | **94** | **71** |
+| [day-07-questions.md](./day-07-questions.md) → [answers](./answer-key/day-07-answers.md) | Caching Deep Dive | 50 | 24 | 15 | 21 | 14 |
+| [day-08-questions.md](./day-08-questions.md) → [answers](./answer-key/day-08-answers.md) | Message Queues Deep Dive | 50 | 24 | 15 | 21 | 14 |
+| [day-09-questions.md](./day-09-questions.md) → [answers](./answer-key/day-09-answers.md) | Reliability & Fault Tolerance | 50 | 25 | 15 | 21 | 14 |
+| **Total** | | **300** | **136** | **93** | **118** | **89** |
 
 ---
 

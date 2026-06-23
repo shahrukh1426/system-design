@@ -1,4 +1,4 @@
-# Reliability & Fault Tolerance — Answer Key & Explanations (30)
+# Reliability & Fault Tolerance — Answer Key & Explanations (50)
 
 Answer key for [day-09-questions.md](../day-09-questions.md)
 
@@ -241,5 +241,165 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 **Answer:** A, B, D
 
 **Explanation:** Game days improve MTTR; complement metrics/SLOs (C false).
+
+---
+
+### Q31 [Easy] [Case Study] — UptimeCorp DNS Outage
+
+**Answer:** A, B, C
+
+**Explanation:** DNS is critical path. Secondary DNS helps. Low TTL has propagation/ops trade-offs (D).
+
+---
+
+### Q32 [Easy] — Kubernetes Probe Types
+
+**Answer:** A, B, C
+
+**Explanation:** Liveness, readiness, startup roles differ. Liveness should not kill on every DB blip (D).
+
+---
+
+### Q33 [Easy] [Case Study] — UptimeCorp Post-Outage Login Surge
+
+**Answer:** A, B, D
+
+**Explanation:** Recovery herd exceeds steady peak. Rate limit and jitter help (C).
+
+---
+
+### Q34 [Easy] — Classifying Dependency Failures
+
+**Answer:** A, B, C
+
+**Explanation:** Transient vs permanent vs slow need different policies. Not one retry policy for all (D).
+
+---
+
+### Q35 [Easy] [Case Study] — UptimeCorp Health Check Flapping
+
+**Answer:** A, B, C
+
+**Explanation:** Tune thresholds; all backends out = outage; hysteresis on shared deps. Aggressive checks can worsen flapping (D).
+
+---
+
+### Q36 [Easy] — N+1 Redundant Capacity
+
+**Answer:** A, B, D
+
+**Explanation:** N+1 and headroom differ. 100% utilization leaves no failure margin (C).
+
+---
+
+### Q37 [Medium] [Case Study] — UptimeCorp Hedged Requests
+
+**Answer:** A, B, D
+
+**Explanation:** Hedging cuts tail latency selectively. Can cap hedging — not blind 2× always (C).
+
+---
+
+### Q38 [Medium] — Fallback vs Fail Fast
+
+**Answer:** A, B, D
+
+**Explanation:** Different strategies for different tiers. Not identical UX (C).
+
+---
+
+### Q39 [Medium] [Case Study] — UptimeCorp API Rate Limiting
+
+**Answer:** A, B, D
+
+**Explanation:** Rate limits shed overload. Unlimited traffic is not HA (C).
+
+---
+
+### Q40 [Medium] — Blue-Green vs Rolling Deploy
+
+**Answer:** A, B, C
+
+**Explanation:** Blue-green fast rollback; rolling smaller waves; duplicate infra cost. Rolling still needs checks (D).
+
+---
+
+### Q41 [Medium] [Case Study] — UptimeCorp Hidden Dependency Chain
+
+**Answer:** A, B, D
+
+**Explanation:** Maps and tracing reveal hidden sync chains. Docs complement — not replace — timeouts (C).
+
+---
+
+### Q42 [Medium] — Synthetic Monitoring
+
+**Answer:** A, B, D
+
+**Explanation:** Synthetic improves MTTD. Complements — not replaces — real-user SLIs (C).
+
+---
+
+### Q43 [Medium] [Case Study] — UptimeCorp Status Page Trust
+
+**Answer:** A, B, D
+
+**Explanation:** Honest status is incident response. Hiding outages erodes trust (C).
+
+---
+
+### Q44 [Medium] — Blast Radius Reduction
+
+**Answer:** A, B, D
+
+**Explanation:** Cells, flags, isolation. Monolith blast radius varies — not always smaller (C).
+
+---
+
+### Q45 [Hard] [Case Study] — UptimeCorp Compounded Retries
+
+**Answer:** A, B, D
+
+**Explanation:** Retry budgets cap amplification. Multi-layer retry has cost (C).
+
+---
+
+### Q46 [Hard] — Cold, Warm, and Hot Standby
+
+**Answer:** A, B, C
+
+**Explanation:** Standby tiers trade cost vs RTO. RPO depends on replication/backups — not automatic (D).
+
+---
+
+### Q47 [Hard] [Case Study] — UptimeCorp Latency SLO Miss
+
+**Answer:** A, B, D
+
+**Explanation:** Latency SLIs catch slow degradation. Zero errors ≠ good UX (C).
+
+---
+
+### Q48 [Hard] — Poison Input on Sync Path
+
+**Answer:** A, B, D
+
+**Explanation:** Validate input; DLQ/quarantine bad payloads. Infinite retry on bad input fails (C).
+
+---
+
+### Q49 [Hard] [Case Study] — UptimeCorp Active-Active Write Conflict
+
+**Answer:** A, B, D
+
+**Explanation:** Active-active needs conflict resolution. Partitions happen; strong consistency may need single writer (C).
+
+---
+
+### Q50 [Hard] — Reliability Culture and Operations
+
+**Answer:** A, B, D
+
+**Explanation:** Blameless culture, error budgets, operational practice. 100% uptime is not realistic (C).
 
 ---

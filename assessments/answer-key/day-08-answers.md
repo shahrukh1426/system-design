@@ -1,4 +1,4 @@
-# Message Queues Deep Dive — Answer Key & Explanations (30)
+# Message Queues Deep Dive — Answer Key & Explanations (50)
 
 Answer key for [day-08-questions.md](../day-08-questions.md)
 
@@ -241,5 +241,165 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 **Answer:** A, B, D
 
 **Explanation:** Delay queues for scheduled work. Real-time chat uses WebSocket, not delayed queue (C).
+
+---
+
+### Q31 [Easy] [Case Study] — EventPipe Schema Breaking Change
+
+**Answer:** A, B, D
+
+**Explanation:** Version and evolve compatibly. Remove fields only after consumers updated (C).
+
+---
+
+### Q32 [Easy] — Priority and Multiple Queues
+
+**Answer:** A, B, D
+
+**Explanation:** Separate queues/pools for priority. Single FIFO does not auto-prioritize (C).
+
+---
+
+### Q33 [Easy] [Case Study] — EventPipe Webhook Replay Request
+
+**Answer:** A, B, C, D
+
+**Explanation:** Kafka replay within retention; SQS consumed messages gone; design logs when replay is required.
+
+---
+
+### Q34 [Easy] — Message Ordering Trade-offs
+
+**Answer:** A, B, D
+
+**Explanation:** Global order limits throughput. Ordering has cost; handle out-of-order retries (C).
+
+---
+
+### Q35 [Easy] [Case Study] — EventPipe Visibility Timeout Too Short
+
+**Answer:** A, B, D
+
+**Explanation:** Timeout must cover processing; heartbeat extends lease. Short timeout causes duplicates (C).
+
+---
+
+### Q36 [Easy] — RabbitMQ Exchange Routing
+
+**Answer:** A, B, C
+
+**Explanation:** Direct, topic, fanout models. RabbitMQ ≠ Kafka partitions (D).
+
+---
+
+### Q37 [Medium] [Case Study] — EventPipe Shared Queue Mistake
+
+**Answer:** A, B, D
+
+**Explanation:** Task queue competes — one consumer per message. Fan-out needs pub/sub (C).
+
+---
+
+### Q38 [Medium] — Saga Choreography vs Orchestration
+
+**Answer:** A, B, D
+
+**Explanation:** Two saga styles; both need idempotency (C).
+
+---
+
+### Q39 [Medium] [Case Study] — EventPipe Rebalance Storm
+
+**Answer:** A, B, D
+
+**Explanation:** Rebalance pauses consumption; limit churn; sticky/cooperative rebalance (C).
+
+---
+
+### Q40 [Medium] — Dead Letter Queue Operations
+
+**Answer:** A, B, D
+
+**Explanation:** Alert, idempotent replay, rich metadata. DLQ messages can be reprocessed (C).
+
+---
+
+### Q41 [Medium] [Case Study] — EventPipe Out-of-Order Events
+
+**Answer:** A, B, D
+
+**Explanation:** State machine and sequence guards. At-least-once ≠ perfect order (C).
+
+---
+
+### Q42 [Medium] — Task Queue Worker Semantics
+
+**Answer:** A, B, D
+
+**Explanation:** Ack-after-success, optional result backend, visibility lease. DB transactions still required (C).
+
+---
+
+### Q43 [Medium] [Case Study] — EventPipe Publish-Before-Commit
+
+**Answer:** A, B, D
+
+**Explanation:** Dual-write race; outbox fixes ordering vs commit. Publish-first is unsafe (C).
+
+---
+
+### Q44 [Medium] — Message Payload Compression
+
+**Answer:** A, B, D
+
+**Explanation:** Compression saves bandwidth/CPU trade-off. Large blobs still belong in object storage (C).
+
+---
+
+### Q45 [Hard] [Case Study] — EventPipe Inbox Pattern
+
+**Answer:** A, B, D
+
+**Explanation:** Inbound dedup table in same txn. Inbox is for inbound integrations (C).
+
+---
+
+### Q46 [Hard] — Kafka Log Compaction
+
+**Answer:** A, B, D
+
+**Explanation:** Compacted topics for keyed state. Not instant delete-all-history (C).
+
+---
+
+### Q47 [Hard] [Case Study] — EventPipe Cross-Region Consumer Lag
+
+**Answer:** A, B, D
+
+**Explanation:** Cross-region is eventual; plan lag tolerance. Not synchronous zero-lag (C).
+
+---
+
+### Q48 [Hard] — FIFO Queue Semantics
+
+**Answer:** A, B, D
+
+**Explanation:** Order per MessageGroupId; parallel groups. Not global account order (C).
+
+---
+
+### Q49 [Hard] [Case Study] — EventPipe Kafka Rolling Upgrade
+
+**Answer:** A, B, D
+
+**Explanation:** Replication and client retries for leader elections. Single broker is not production-safe (C).
+
+---
+
+### Q50 [Hard] — When Queues Add Harm
+
+**Answer:** A, B, C
+
+**Explanation:** Queues add ops cost; sync paths need UX for user-visible decisions. Not every call should be queued (D).
 
 ---

@@ -1,4 +1,4 @@
-# Caching Deep Dive — Answer Key & Explanations (30)
+# Caching Deep Dive — Answer Key & Explanations (50)
 
 Answer key for [day-07-questions.md](../day-07-questions.md)
 
@@ -241,5 +241,165 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 **Answer:** A, B, D
 
 **Explanation:** Breaker protects DB; stale CDN/L1 may help briefly. Unlimited retries amplify outage (C).
+
+---
+
+### Q31 [Easy] [Case Study] — RetailHub ETag Revalidation
+
+**Answer:** A, B, D
+
+**Explanation:** Conditional requests save bandwidth. ETags complement — not replace — write invalidation (C).
+
+---
+
+### Q32 [Easy] — Stale-While-Revalidate
+
+**Answer:** A, B, D
+
+**Explanation:** SWR trades brief staleness for speed. Not for authoritative financial reads (C).
+
+---
+
+### Q33 [Easy] [Case Study] — RetailHub Eviction Under Memory Pressure
+
+**Answer:** A, B, D
+
+**Explanation:** LRU evicts hot keys under pressure. Monitor and tune policy — not perfect hot-key preservation (C).
+
+---
+
+### Q34 [Easy] — Memcached vs Redis
+
+**Answer:** A, B, D
+
+**Explanation:** Feature trade-offs between cache engines. Neither auto-syncs with PostgreSQL (C).
+
+---
+
+### Q35 [Easy] [Case Study] — RetailHub Double Cache Populate
+
+**Answer:** A, B, D
+
+**Explanation:** Miss coalescing saves DB load. Duplicate SET with same value wastes work but need not corrupt (C).
+
+---
+
+### Q36 [Easy] — CDN Purge and Versioned Assets
+
+**Answer:** A, B, D
+
+**Explanation:** Purge plus fingerprinted URLs. Global purge is not always instant (C).
+
+---
+
+### Q37 [Medium] [Case Study] — RetailHub Mixed Personalization
+
+**Answer:** A, B, D
+
+**Explanation:** Split shared vs per-user caching. One key for full personalized page kills hit rate (C).
+
+---
+
+### Q38 [Medium] — Redis Persistence Trade-offs
+
+**Answer:** A, B, D
+
+**Explanation:** RDB/AOF durability trade-offs. Redis is not financial ledger (C).
+
+---
+
+### Q39 [Medium] [Case Study] — RetailHub Cross-Region Latency
+
+**Answer:** A, B, D
+
+**Explanation:** Geo placement matters. US-only cache cannot equalize EU latency (C).
+
+---
+
+### Q40 [Medium] — L1 Cache Coherency Across Pods
+
+**Answer:** A, B, C
+
+**Explanation:** L1 needs invalidation, pub/sub, or short TTL. No automatic cross-pod coherence (D).
+
+---
+
+### Q41 [Medium] [Case Study] — RetailHub Flash Sale Oversell
+
+**Answer:** A, B, D
+
+**Explanation:** Authorize stock from DB with atomic update. TTL alone does not prevent oversell (C).
+
+---
+
+### Q42 [Medium] — HTTP Vary Header
+
+**Answer:** A, B, D
+
+**Explanation:** Vary manages cache variants. Authenticated responses often still need `private` (C).
+
+---
+
+### Q43 [Medium] [Case Study] — RetailHub Marketing Banner SWR
+
+**Answer:** A, B, D
+
+**Explanation:** SWR OK for low-risk visuals; purge/version critical content. SWR allows staleness (C).
+
+---
+
+### Q44 [Medium] — Read-Through vs Cache-Aside Operations
+
+**Answer:** A, B, D
+
+**Explanation:** Pattern choice is ops and control trade-off. App still owns writes (C).
+
+---
+
+### Q45 [Hard] [Case Study] — RetailHub Simultaneous L1 Cold Start
+
+**Answer:** A, C, D
+
+**Explanation:** Stagger warm-up/canary; L2 singleflight helps. TTL jitter does not fix simultaneous deploy cold start (B).
+
+---
+
+### Q46 [Hard] — Redis Cluster Behavior
+
+**Answer:** A, B, D
+
+**Explanation:** Cluster slot redirects and hot-key limits. One logical key does not auto-split (C).
+
+---
+
+### Q47 [Hard] [Case Study] — RetailHub Session PII in Redis
+
+**Answer:** A, B, D
+
+**Explanation:** TLS, minimize PII, managed at-rest encryption. Caching does not remove compliance duties (C).
+
+---
+
+### Q48 [Hard] — Negative Caching Limits
+
+**Answer:** A, B, D
+
+**Explanation:** Short TTL on null cache; tune Bloom filters. Infinite TTL blocks new records (C).
+
+---
+
+### Q49 [Hard] [Case Study] — RetailHub Tenant Cache Isolation
+
+**Answer:** A, B, D
+
+**Explanation:** Tenant namespacing and isolation. Flat shared keyspace is unsafe (C).
+
+---
+
+### Q50 [Hard] — When Not to Add Cache
+
+**Answer:** A, B, C
+
+**Explanation:** Cache when read-heavy with staleness budget. Not universal for every endpoint (D).
 
 ---

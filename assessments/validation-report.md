@@ -1,8 +1,8 @@
 # Validation Report — Days 1–9 MCQ Bank
 
-**Last validation:** 2026-06-18  
-**Questions reviewed:** 220  
-**Answer keys reviewed:** 220  
+**Last validation:** 2026-06-23  
+**Questions reviewed:** 300  
+**Answer keys reviewed:** 300  
 **Location:** [assessments/](./) — questions in root; answers in [answer-key/](./answer-key/)
 
 ---
@@ -11,17 +11,17 @@
 
 | Check | Result | Details |
 |-------|--------|---------|
-| Question count | **PASS** | 100 (Days 1–5) + 120 (Days 6–9) = **220** |
-| Answer key count | **PASS** | 220 entries — 1:1 with questions |
+| Question count | **PASS** | 100 (Days 1–5) + 200 (Days 6–9) = **300** |
+| Answer key count | **PASS** | 300 entries — 1:1 with questions |
 | Q ↔ A ID/title/difficulty match | **PASS** | All Q01–Qxx align across 9 files |
 | Answer letters valid | **PASS** | Every letter exists in that question's options |
-| Multi-select rule (≥2 correct) | **PASS** | 220/220 have 2–4 correct options |
-| Explanations present | **PASS** | 220/220 answer-key entries include **Explanation** |
+| Multi-select rule (≥2 correct) | **PASS** | 300/300 have 2–4 correct options |
+| Explanations present | **PASS** | 300/300 answer-key entries include **Explanation** |
 | Answers separated from questions | **PASS** | 0 `**Answer:**` / `**Explanation:**` in question files |
 | Answer-key links in question files | **PASS** | All 9 question files link to matching answer-key file |
 | Banned meta phrases | **PASS** | 0 matches (curriculum, Day N, Source:, listed in, etc.) |
-| Case studies | **PASS** | 96 tagged `[Case Study]` with **Context** blocks (≥48 in Days 6–9 batch) |
-| Days 6–9 per-file count | **PASS** | 30 / 30 / 30 / 30 |
+| Case studies | **PASS** | 136 tagged `[Case Study]` with **Context** blocks |
+| Days 6–9 per-file count | **PASS** | 50 / 50 / 50 / 50 |
 | Duplicate stems | **PASS** | 0 duplicate `**Select all that apply.**` in new files |
 
 **Overall status: PASS — ready for exam practice**
@@ -38,10 +38,10 @@
 | [day-04-questions.md](./day-04-questions.md) | [answer-key/day-04-answers.md](./answer-key/day-04-answers.md) | 14 | 5 | 5 | 5 | 4 |
 | [day-05-questions.md](./day-05-questions.md) | [answer-key/day-05-answers.md](./answer-key/day-05-answers.md) | 30 | 15 | 10 | 10 | 10 |
 | [day-06-questions.md](./day-06-questions.md) | [answer-key/day-06-answers.md](./answer-key/day-06-answers.md) | 50 | 23 | 15 | 20 | 15 |
-| [day-07-questions.md](./day-07-questions.md) | [answer-key/day-07-answers.md](./answer-key/day-07-answers.md) | 30 | 14 | 9 | 13 | 8 |
-| [day-08-questions.md](./day-08-questions.md) | [answer-key/day-08-answers.md](./answer-key/day-08-answers.md) | 30 | 14 | 9 | 13 | 8 |
-| [day-09-questions.md](./day-09-questions.md) | [answer-key/day-09-answers.md](./answer-key/day-09-answers.md) | 30 | 15 | 9 | 13 | 8 |
-| **Total** | | **220** | **96** | **69** | **86** | **65** |
+| [day-07-questions.md](./day-07-questions.md) | [answer-key/day-07-answers.md](./answer-key/day-07-answers.md) | 50 | 24 | 15 | 21 | 14 |
+| [day-08-questions.md](./day-08-questions.md) | [answer-key/day-08-answers.md](./answer-key/day-08-answers.md) | 50 | 24 | 15 | 21 | 14 |
+| [day-09-questions.md](./day-09-questions.md) | [answer-key/day-09-answers.md](./answer-key/day-09-answers.md) | 50 | 25 | 15 | 21 | 14 |
+| **Total** | | **300** | **136** | **93** | **118** | **89** |
 
 ---
 

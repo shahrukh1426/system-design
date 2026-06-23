@@ -1,4 +1,4 @@
-# Reliability & Fault Tolerance — MCQ Questions (30)
+# Reliability & Fault Tolerance — MCQ Questions (50)
 
 Multi-select format: each question has **two or more** correct answers. Questions tagged **[Case Study]** include a business context block.
 
@@ -423,5 +423,285 @@ What practices does this exercise?
 - [ ] B. Test degradations in staging by manually opening circuits before production need
 - [ ] C. Game days replace need for metrics, SLOs, or automated rollback
 - [ ] D. Problem→pattern: dependency down → circuit breaker + fallback + comms
+
+---
+
+### Q31 [Easy] [Case Study] — UptimeCorp DNS Outage
+
+**Context:** UptimeCorp's DNS provider fails for 20 minutes. All application servers are healthy but users cannot resolve `shop.uptimecorp.com`.
+
+**Select all that apply.**
+
+What reliability lesson applies?
+
+- [ ] A. DNS is an easily overlooked single point of failure
+- [ ] B. Secondary DNS provider or failover registrar reduces risk
+- [ ] C. Healthy application servers matter little if DNS resolution fails
+- [ ] D. Very low TTL eliminates all DNS failure impact with zero trade-offs
+
+---
+
+### Q32 [Easy] — Kubernetes Probe Types
+
+**Select all that apply.**
+
+Which probe purposes are correct?
+
+- [ ] A. Liveness — is the process alive; restart if dead
+- [ ] B. Readiness — can this instance accept traffic; remove from load balancer if failing
+- [ ] C. Startup — slow-init apps need extended probe before liveness kills the pod
+- [ ] D. Liveness should fail the pod on any transient database blip across the dependency graph
+
+---
+
+### Q33 [Easy] [Case Study] — UptimeCorp Post-Outage Login Surge
+
+**Context:** After a 30-minute outage, 500,000 users refresh simultaneously. Auth service is overwhelmed despite capacity for normal peak of 50,000 logins per minute.
+
+**Select all that apply.**
+
+What describes this failure mode and valid responses?
+
+- [ ] A. Recovery storm / thundering herd after incidents
+- [ ] B. Rate limiting, jittered client retry, and edge queueing help absorb the surge
+- [ ] C. Steady-state peak capacity automatically handles post-outage recovery surges
+- [ ] D. Staged recovery or token-bucket limits on the login path may be required
+
+---
+
+### Q34 [Easy] — Classifying Dependency Failures
+
+**Select all that apply.**
+
+How should UptimeCorp classify dependency failures for handling policy?
+
+- [ ] A. Transient — retry with backoff may succeed (503, timeout)
+- [ ] B. Permanent — bad input; retry will not help (400, invalid schema)
+- [ ] C. Slow partial — may need timeout and circuit breaker before hard failure
+- [ ] D. All failures should be retried identically with the same policy
+
+---
+
+### Q35 [Easy] [Case Study] — UptimeCorp Health Check Flapping
+
+**Context:** UptimeCorp's ALB uses deep health checks including Redis reachability. A 2-second Redis blip marks all 6 instances unhealthy simultaneously — the site goes fully down.
+
+**Select all that apply.**
+
+What went wrong and what should change?
+
+- [ ] A. Unhealthy threshold and check interval tuning reduces flapping
+- [ ] B. When all backends fail health checks, the load balancer serves no traffic
+- [ ] C. Brief shared dependency blips should not drain the entire fleet without hysteresis or layered checks
+- [ ] D. More aggressive dependency checks always improve end-user reliability
+
+---
+
+### Q36 [Easy] — N+1 Redundant Capacity
+
+**Select all that apply.**
+
+Which capacity planning statements are correct?
+
+- [ ] A. N+1 spare capacity covers one instance failure during normal load
+- [ ] B. Headroom for deploys and traffic spikes is separate from failure redundancy
+- [ ] C. Running at 100% utilization maximizes reliability and user experience
+- [ ] D. Chaos drills and load tests validate redundancy assumptions
+
+---
+
+### Q37 [Medium] [Case Study] — UptimeCorp Hedged Requests
+
+**Context:** UptimeCorp's search service calls two read replicas; the first response wins and the slower call is cancelled. P99 latency drops 40%.
+
+**Select all that apply.**
+
+What pattern is this and when is it appropriate?
+
+- [ ] A. Hedged requests trade extra load for tail-latency reduction
+- [ ] B. Useful when an occasional slow replica causes tail spikes
+- [ ] C. Hedging every request always doubles cost with no selective cap or benefit
+- [ ] D. Apply selectively — risky for non-idempotent writes without careful design
+
+---
+
+### Q38 [Medium] — Fallback vs Fail Fast
+
+**Select all that apply.**
+
+Which compare fallback and fail-fast strategies?
+
+- [ ] A. Fallback returns a degraded response when a dependency fails
+- [ ] B. Fail fast returns an error immediately and preserves caller resources
+- [ ] C. Fallback and fail fast are identical strategies with the same UX
+- [ ] D. Choice depends on feature criticality and acceptable user experience
+
+---
+
+### Q39 [Medium] [Case Study] — UptimeCorp API Rate Limiting
+
+**Context:** Under a traffic spike resembling a DDoS, UptimeCorp enables per-API-key rate limits returning `429` with `Retry-After`. Core paying customers remain stable.
+
+**Select all that apply.**
+
+What reliability pattern applies?
+
+- [ ] A. Rate limiting is overload protection — a form of load shedding
+- [ ] B. `Retry-After` helps well-behaved clients back off
+- [ ] C. Accepting unlimited traffic is required for high availability
+- [ ] D. Per-tenant limits protect the shared platform from one abusive client
+
+---
+
+### Q40 [Medium] — Blue-Green vs Rolling Deploy
+
+**Select all that apply.**
+
+Which statements compare deploy strategies?
+
+- [ ] A. Blue-green enables fast rollback by switching traffic between environments
+- [ ] B. Rolling deploy replaces instances gradually — smaller blast radius per wave
+- [ ] C. Blue-green often requires duplicate infrastructure during cutover
+- [ ] D. Rolling deploys never need health checks, canaries, or automated rollback
+
+---
+
+### Q41 [Medium] [Case Study] — UptimeCorp Hidden Dependency Chain
+
+**Context:** Post-incident review reveals Payment synchronously calls a legacy Fraud service nobody documented. Checkout failed when Fraud slowed.
+
+**Select all that apply.**
+
+What practices prevent surprise cascades?
+
+- [ ] A. Dependency maps and service catalogs improve blast-radius analysis
+- [ ] B. Undocumented sync chains hide cascading failure risk
+- [ ] C. Documentation alone eliminates the need for timeouts and circuit breakers
+- [ ] D. Distributed tracing reveals runtime dependencies missing from architecture diagrams
+
+---
+
+### Q42 [Medium] — Synthetic Monitoring
+
+**Select all that apply.**
+
+Which statements about synthetic monitoring are correct?
+
+- [ ] A. External probes exercise checkout path on a schedule
+- [ ] B. Synthetic checks can detect failures before user reports — improving MTTD
+- [ ] C. Synthetic traffic fully replaces real-user metrics and SLIs
+- [ ] D. Run probes from multiple regions for geo-aware availability measurement
+
+---
+
+### Q43 [Medium] [Case Study] — UptimeCorp Status Page Trust
+
+**Context:** During a partial checkout outage, UptimeCorp's status page shows "All systems operational." Support tickets spike and customer trust erodes.
+
+**Select all that apply.**
+
+What should incident communication include?
+
+- [ ] A. Accurate status communication is part of incident response
+- [ ] B. Component-level status reduces support load and confusion
+- [ ] C. Hiding partial outages improves long-term customer trust
+- [ ] D. Automate status updates from SLI burn or synthetic checks where possible
+
+---
+
+### Q44 [Medium] — Blast Radius Reduction
+
+**Select all that apply.**
+
+Which techniques limit blast radius?
+
+- [ ] A. Cell-based architecture confines failure to one cell or shard
+- [ ] B. Feature flags disable bad code paths without full redeploy rollback
+- [ ] C. Monoliths always have smaller blast radius than microservices
+- [ ] D. Isolate experimental workloads from production critical paths
+
+---
+
+### Q45 [Hard] [Case Study] — UptimeCorp Compounded Retries
+
+**Context:** API gateway retries 3×, order service retries 3×, and mobile client retries 3×. During a payment blip, Payment receives up to 27× effective load.
+
+**Select all that apply.**
+
+What fixes apply?
+
+- [ ] A. Retry budgets per layer prevent end-to-end amplification
+- [ ] B. Server idempotency is still required, but budgets reduce load during outages
+- [ ] C. Multi-layer retries always improve reliability with zero downside
+- [ ] D. Document and cap retries end-to-end in architecture reviews
+
+---
+
+### Q46 [Hard] — Cold, Warm, and Hot Standby
+
+**Select all that apply.**
+
+Which compare disaster recovery standby models?
+
+- [ ] A. Cold standby — minimal running cost; longer RTO to provision and start
+- [ ] B. Warm standby — partially running; faster RTO than cold
+- [ ] C. Hot active-active standby has lowest RTO but highest cost and complexity
+- [ ] D. Cold standby automatically guarantees zero RPO without backup design
+
+---
+
+### Q47 [Hard] [Case Study] — UptimeCorp Latency SLO Miss
+
+**Context:** Error rate is 0.1% but checkout P99 latency SLO is breached for 2 hours. No pages fire because alerts only watch 5xx rate.
+
+**Select all that apply.**
+
+What monitoring gap exists?
+
+- [ ] A. Latency SLIs catch slow partial failures without elevated error rate
+- [ ] B. Multi-window burn alerts on latency percentiles are needed alongside availability
+- [ ] C. Zero errors means all reliability and user-experience goals are met
+- [ ] D. Tail latency degrades UX even when HTTP 5xx rate stays low
+
+---
+
+### Q48 [Hard] — Poison Input on Sync Path
+
+**Select all that apply.**
+
+A webhook handler crashes on one malformed payload in a loop. Which responses apply?
+
+- [ ] A. Validate and reject bad input at the edge before crash-prone parsing
+- [ ] B. Circuit breaker on downstream dependencies does not fix own crash-on-parse bugs
+- [ ] C. Retry the same malformed payload forever until it succeeds
+- [ ] D. Dead-letter or quarantine pattern applies to sync workers handling untrusted input
+
+---
+
+### Q49 [Hard] [Case Study] — UptimeCorp Active-Active Write Conflict
+
+**Context:** Two regions accept writes during a network partition. The same user updates their profile in both regions — conflicting versions on merge.
+
+**Select all that apply.**
+
+What does active-active require?
+
+- [ ] A. Conflict resolution strategy — last-write-wins, CRDT, or primary-writer per entity
+- [ ] B. Last-write-wins may silently lose data — design consciously
+- [ ] C. Cloud networks never partition — active-active has no merge conflicts
+- [ ] D. Choose active-passive or single write region when strong consistency is mandatory
+
+---
+
+### Q50 [Hard] — Reliability Culture and Operations
+
+**Select all that apply.**
+
+Which belong in UptimeCorp's long-term reliability culture?
+
+- [ ] A. Blameless postmortems focus on systems and process, not individual blame
+- [ ] B. Error budgets align product velocity with measurable reliability trade-offs
+- [ ] C. 100% uptime is a realistic engineering target for all tier-1 services
+- [ ] D. Runbooks, game days, and chaos experiments convert design into operational skill
 
 ---

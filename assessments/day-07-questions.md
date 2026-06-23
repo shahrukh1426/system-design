@@ -1,4 +1,4 @@
-# Caching Deep Dive — MCQ Questions (30)
+# Caching Deep Dive — MCQ Questions (50)
 
 Multi-select format: each question has **two or more** correct answers. Questions tagged **[Case Study]** include a business context block.
 
@@ -427,5 +427,285 @@ Which degradation strategies apply?
 - [ ] B. Return 503 or serve stale cached copy at CDN/browser if acceptable
 - [ ] C. Unlimited retries to DB without backoff — always recovers fastest
 - [ ] D. Multi-layer L1 in-process cache extends partial availability briefly
+
+---
+
+### Q31 [Easy] [Case Study] — RetailHub ETag Revalidation
+
+**Context:** RetailHub's category API returns 500 KB JSON. Clients re-fetch the full body on every visit even though categories change rarely.
+
+**Select all that apply.**
+
+Which caching techniques reduce bandwidth and origin load?
+
+- [ ] A. `ETag` / `If-None-Match` enables `304 Not Modified` when content is unchanged
+- [ ] B. Conditional requests reduce origin work when the representation has not changed
+- [ ] C. ETags eliminate the need for any write-path invalidation on admin updates
+- [ ] D. Strong ETags support validators at CDN and browser layers
+
+---
+
+### Q32 [Easy] — Stale-While-Revalidate
+
+**Select all that apply.**
+
+Which statements about stale-while-revalidate (SWR) are correct?
+
+- [ ] A. SWR can serve stale content while refreshing in the background
+- [ ] B. SWR improves perceived latency during revalidation windows
+- [ ] C. SWR guarantees zero staleness for financial authorization decisions
+- [ ] D. SWR appears in HTTP `Cache-Control` extensions and CDN configurations
+
+---
+
+### Q33 [Easy] [Case Study] — RetailHub Eviction Under Memory Pressure
+
+**Context:** Redis hits `maxmemory` with `allkeys-lru`. Hit rate drops from 92% to 61% as popular product keys are evicted alongside cold keys.
+
+**Select all that apply.**
+
+What explains this and what should ops do?
+
+- [ ] A. Memory pressure triggers eviction — hot keys can be evicted under `allkeys-lru`
+- [ ] B. Monitor memory usage, eviction rate, and choose an appropriate `maxmemory-policy`
+- [ ] C. `allkeys-lru` perfectly preserves every hot key regardless of memory pressure
+- [ ] D. Separate tiers, reserved memory, or key design may be needed for hot data
+
+---
+
+### Q34 [Easy] — Memcached vs Redis
+
+**Select all that apply.**
+
+When choosing a distributed cache technology, which comparisons are correct?
+
+- [ ] A. Redis offers richer data structures and optional persistence features
+- [ ] B. Memcached is a simpler multi-threaded cache for pure key-value TTL workloads
+- [ ] C. Memcached automatically stays strongly consistent with PostgreSQL on every read
+- [ ] D. Both can serve as L2 application cache — choice depends on required features
+
+---
+
+### Q35 [Easy] [Case Study] — RetailHub Double Cache Populate
+
+**Context:** Two threads miss the same product key simultaneously. Both query PostgreSQL and both `SET` Redis with the same value.
+
+**Select all that apply.**
+
+What describes this race and valid mitigations?
+
+- [ ] A. Singleflight / miss coalescing prevents duplicate DB loads for the same key
+- [ ] B. The race may not corrupt data but still wastes DB capacity under load
+- [ ] C. Double populate always corrupts cache values with conflicting data
+- [ ] D. Lock-based miss coalescing is a standard stampede mitigation technique
+
+---
+
+### Q36 [Easy] — CDN Purge and Versioned Assets
+
+**Select all that apply.**
+
+Which practices keep CDN content fresh after deploys?
+
+- [ ] A. Purge API invalidates edge copies when content changes
+- [ ] B. Fingerprinted asset URLs (`app.a1b2c3.js`) reduce need for broad purges
+- [ ] C. CDN purge is always instantaneous globally with zero propagation delay
+- [ ] D. Multi-layer caching requires invalidating every layer that may serve stale content
+
+---
+
+### Q37 [Medium] [Case Study] — RetailHub Mixed Personalization
+
+**Context:** RetailHub's homepage combines a public hero banner (shared) with per-user recommendations. One cache key for the full HTML minimizes code complexity.
+
+**Select all that apply.**
+
+What is sound cache design here?
+
+- [ ] A. Cache public fragments at CDN/Redis with shared keys
+- [ ] B. Per-user sections need short TTL, separate API calls, or edge-side composition
+- [ ] C. One shared cache key for the full personalized page maximizes hit rate
+- [ ] D. Split cacheable vs non-cacheable fragments — not all-or-nothing page caching
+
+---
+
+### Q38 [Medium] — Redis Persistence Trade-offs
+
+**Select all that apply.**
+
+Which statements about Redis persistence are correct?
+
+- [ ] A. RDB snapshots are point-in-time — data since last snapshot may be lost on crash
+- [ ] B. AOF `fsync` policy trades durability for write throughput
+- [ ] C. Redis persistence makes it a full replacement for PostgreSQL as financial ledger
+- [ ] D. Pure cache workloads often tolerate empty restart with warm-up rather than heavy persistence
+
+---
+
+### Q39 [Medium] [Case Study] — RetailHub Cross-Region Latency
+
+**Context:** EU users hit RetailHub's US-origin product API. P95 latency is 280 ms despite Redis at the US origin. US users see 35 ms.
+
+**Select all that apply.**
+
+What architectural responses apply?
+
+- [ ] A. Regional Redis or CDN edge caching closer to users reduces round-trip time
+- [ ] B. Cross-region cache replication adds complexity — geographic placement matters
+- [ ] C. A single US Redis cluster gives identical latency to EU and US users
+- [ ] D. Geo-routed endpoints or multi-region deployment may be required at scale
+
+---
+
+### Q40 [Medium] — L1 Cache Coherency Across Pods
+
+**Select all that apply.**
+
+RetailHub uses in-process L1 cache in front of Redis L2. Which statements are correct?
+
+- [ ] A. Uncoordinated L1 across pods can serve stale data after a write on another pod
+- [ ] B. Pub/sub invalidation channel can clear L1 entries on writes
+- [ ] C. Very short L1 TTL reduces the stale window without explicit invalidation
+- [ ] D. L1 caches are automatically coherent across JVMs/processes without design
+
+---
+
+### Q41 [Medium] [Case Study] — RetailHub Flash Sale Oversell
+
+**Context:** Redis shows 5 units in stock. PostgreSQL already sold out during a race. Checkout authorized from stale cache.
+
+**Select all that apply.**
+
+What went wrong and what is correct design?
+
+- [ ] A. Authoritative inventory deduction must read/write DB with lock or atomic conditional `UPDATE`
+- [ ] B. Cache-aside stock counts used to authorize purchases are dangerous on hot inventory
+- [ ] C. Short TTL alone guarantees no oversell during flash sales
+- [ ] D. Display stock may be approximate; the purchase path must use DB truth
+
+---
+
+### Q42 [Medium] — HTTP Vary Header
+
+**Select all that apply.**
+
+Which statements about the `Vary` response header are correct?
+
+- [ ] A. `Vary: Accept-Encoding` helps caches store gzip vs brotli variants separately
+- [ ] B. `Vary: Authorization` matters when responses differ by authenticated user
+- [ ] C. `Vary` alone eliminates the need for `private` cache on authenticated responses
+- [ ] D. Misconfigured `Vary` can fragment cache keys and lower hit rate
+
+---
+
+### Q43 [Medium] [Case Study] — RetailHub Marketing Banner SWR
+
+**Context:** Marketing updates a banner image. CDN uses `stale-while-revalidate` for one hour. Some users see the old banner briefly while a background fetch updates the edge.
+
+**Select all that apply.**
+
+When is this trade-off acceptable?
+
+- [ ] A. Acceptable for non-critical marketing visuals with known staleness window
+- [ ] B. Price, legal, or checkout-critical text should not rely on long SWR without purge
+- [ ] C. SWR guarantees users never see any stale marketing content
+- [ ] D. Pair SWR with purge or versioned URLs for important updates
+
+---
+
+### Q44 [Medium] — Read-Through vs Cache-Aside Operations
+
+**Select all that apply.**
+
+Which compare operational ownership of read-through vs cache-aside?
+
+- [ ] A. Read-through delegates miss handling to the cache client/library
+- [ ] B. Cache-aside gives the application explicit control over invalidation and miss path
+- [ ] C. Read-through removes all application responsibility for cache and database writes
+- [ ] D. Team familiarity and framework support influence which pattern to adopt
+
+---
+
+### Q45 [Hard] [Case Study] — RetailHub Simultaneous L1 Cold Start
+
+**Context:** Deploy clears L1 on all 80 API pods at once. Each pod cold-misses the top 100 keys — 8,000 concurrent PostgreSQL queries in 2 seconds.
+
+**Select all that apply.**
+
+What mitigations apply?
+
+- [ ] A. Coordinate cache warm-up or staggered traffic shift after deploy
+- [ ] B. TTL jitter on L1 prevents simultaneous cold start after every deploy
+- [ ] C. Singleflight at L2 Redis reduces duplicate DB load for shared hot keys
+- [ ] D. Canary deploy limits the fraction of pods going cold at once
+
+---
+
+### Q46 [Hard] — Redis Cluster Behavior
+
+**Select all that apply.**
+
+Which statements about Redis Cluster are correct?
+
+- [ ] A. Cluster moves hash slots on failover — clients must handle `MOVED`/`ASK` redirects
+- [ ] B. Cross-slot multi-key transactions are limited compared to single-node Redis
+- [ ] C. Cluster automatically splits one logical hot key across nodes without key redesign
+- [ ] D. Hot-key problems remain a design concern even with horizontal sharding
+
+---
+
+### Q47 [Hard] [Case Study] — RetailHub Session PII in Redis
+
+**Context:** Redis stores session blobs containing PII. Compliance requires encryption in transit and minimal sensitive data retention.
+
+**Select all that apply.**
+
+Which practices apply?
+
+- [ ] A. TLS to Redis addresses encryption in transit
+- [ ] B. Store minimal fields in session cache — reduce exposure surface
+- [ ] C. Caching PII eliminates GDPR data-location and retention obligations
+- [ ] D. At-rest encryption depends on managed Redis/cloud disk encryption configuration
+
+---
+
+### Q48 [Hard] — Negative Caching Limits
+
+**Select all that apply.**
+
+Which statements about negative (null) caching are correct?
+
+- [ ] A. Caching known-missing keys with short TTL stops repeated DB hits from scans
+- [ ] B. Short TTL limits harm if the entity is created soon after a cache-miss scan
+- [ ] C. Negative cache with infinite TTL always eventually shows newly created records
+- [ ] D. Bloom filter false positives may rarely skip DB for existent keys — tune size and hash count
+
+---
+
+### Q49 [Hard] [Case Study] — RetailHub Tenant Cache Isolation
+
+**Context:** RetailHub SaaS runs multi-tenant on one Redis cluster. A bad admin script deletes keys matching `product:*` and wipes another tenant's catalog.
+
+**Select all that apply.**
+
+How should multi-tenant cache isolation work?
+
+- [ ] A. Namespace keys per tenant: `{tenant_id}:product:{id}`
+- [ ] B. ACLs or separate Redis instances/clusters for large or regulated tenants
+- [ ] C. Shared flat keyspace without tenant prefix is safest at scale
+- [ ] D. Test invalidation scripts against tenant prefix boundaries in staging
+
+---
+
+### Q50 [Hard] — When Not to Add Cache
+
+**Select all that apply.**
+
+When is adding a cache layer a poor investment?
+
+- [ ] A. Data changes constantly and is rarely re-read — cache adds little value
+- [ ] B. Every read requires strong consistency with zero staleness budget
+- [ ] C. Working set already fits in DB buffer pool with acceptable latency — cache may be premature
+- [ ] D. Every API endpoint benefits from Redis regardless of access pattern
 
 ---
