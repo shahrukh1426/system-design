@@ -2,21 +2,22 @@
 
 Answer key for [day-04-questions.md](../day-04-questions.md)
 
+
 ---
 
 ### Q01 [Easy] — Tracing a Shopper's Click
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Network setup (DNS, TCP, TLS), routing (LB, web server, backend), then response and render happen in sequence. Rendering is last, not before DNS (D).
+**Explanation:** Network setup (DNS, TCP, TLS), routing (LB, web server, backend), then response and render happen in sequence. Rendering is last, not before DNS (B).
 
 ---
 
 ### Q02 [Easy] — Browser-Side Caching on Repeat Visits
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Memory, disk, and Service Worker caches live in the browser. Redis runs on application servers, not inside the browser (D).
+**Explanation:** Memory, disk, and Service Worker caches live in the browser. Redis runs on application servers, not inside the browser (B).
 
 ---
 
@@ -38,25 +39,25 @@ Answer key for [day-04-questions.md](../day-04-questions.md)
 
 ### Q05 [Easy] — TLS Certificate Validation Failures
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Trust chain, domain match, expiry, and revocation status matter for TLS. Hardware specs are irrelevant to certificate validation (D).
+**Explanation:** Trust chain, domain match, expiry, and revocation status matter for TLS. Hardware specs are irrelevant to certificate validation (B).
 
 ---
 
 ### Q06 [Medium] [Case Study] — 503 During ShopExample Flash Sale
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** LB distributes, health-checks, and may terminate TLS. Database queries run in application services, not the load balancer (D).
+**Explanation:** LB distributes, health-checks, and may terminate TLS. Database queries run in application services, not the load balancer (B).
 
 ---
 
 ### Q07 [Medium] [Case Study] — Slow Product Page Backend
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Cache-aside reads Redis first; on miss, populate from DB. Skipping cache entirely overloads the database (C).
+**Explanation:** Cache-aside reads Redis first; on miss, populate from DB. Skipping cache entirely overloads the database (D).
 
 ---
 
@@ -70,15 +71,15 @@ Answer key for [day-04-questions.md](../day-04-questions.md)
 
 ### Q09 [Medium] — Why the Page Is Not Visible Immediately
 
-**Answer:** A, B, C
+**Answer:** A, B, D
 
-**Explanation:** DOM, CSSOM, render tree, layout, and paint are rendering steps. DNS and TLS happen earlier in the network stack (D).
+**Explanation:** DOM, CSSOM, render tree, layout, and paint are rendering steps. DNS and TLS happen earlier in the network stack (C).
 
 ---
 
 ### Q10 [Medium] — Render-Blocking Resources
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
 **Explanation:** CSS and sync JS block rendering. Images load progressively — the layout can appear before all images finish (D overstates image blocking).
 
@@ -86,9 +87,9 @@ Answer key for [day-04-questions.md](../day-04-questions.md)
 
 ### Q11 [Hard] [Case Study] — Where the Request Spends Time
 
-**Answer:** A, B, C
+**Answer:** B, C, D
 
-**Explanation:** DNS, TCP/TLS, and front-door routing precede application logic. The database query runs inside the backend (D).
+**Explanation:** DNS, TCP/TLS, and front-door routing precede application logic. The database query runs inside the backend (A).
 
 ---
 

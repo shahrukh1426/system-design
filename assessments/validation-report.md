@@ -1,8 +1,8 @@
-# Validation Report — Days 1–9 MCQ Bank
+# Validation Report — Days 1–10 MCQ Bank
 
-**Last validation:** 2026-06-23  
-**Questions reviewed:** 300  
-**Answer keys reviewed:** 300  
+**Last validation:** 2026-06-27  
+**Questions reviewed:** 350  
+**Answer keys reviewed:** 350  
 **Location:** [assessments/](./) — questions in root; answers in [answer-key/](./answer-key/)
 
 ---
@@ -11,18 +11,19 @@
 
 | Check | Result | Details |
 |-------|--------|---------|
-| Question count | **PASS** | 100 (Days 1–5) + 200 (Days 6–9) = **300** |
-| Answer key count | **PASS** | 300 entries — 1:1 with questions |
-| Q ↔ A ID/title/difficulty match | **PASS** | All Q01–Qxx align across 9 files |
+| Question count | **PASS** | 100 (Days 1–5) + 250 (Days 6–10) = **350** |
+| Answer key count | **PASS** | 350 entries — 1:1 with questions |
+| Q ↔ A ID/title/difficulty match | **PASS** | All Q01–Qxx align across 10 files |
 | Answer letters valid | **PASS** | Every letter exists in that question's options |
-| Multi-select rule (≥2 correct) | **PASS** | 300/300 have 2–4 correct options |
-| Explanations present | **PASS** | 300/300 answer-key entries include **Explanation** |
+| Multi-select rule (≥2 correct) | **PASS** | 350/350 have 2–4 correct options |
+| Explanations present | **PASS** | 350/350 answer-key entries include **Explanation** |
 | Answers separated from questions | **PASS** | 0 `**Answer:**` / `**Explanation:**` in question files |
-| Answer-key links in question files | **PASS** | All 9 question files link to matching answer-key file |
+| Answer-key links in question files | **PASS** | All 10 question files link to matching answer-key file |
 | Banned meta phrases | **PASS** | 0 matches (curriculum, Day N, Source:, listed in, etc.) |
-| Case studies | **PASS** | 136 tagged `[Case Study]` with **Context** blocks |
-| Days 6–9 per-file count | **PASS** | 50 / 50 / 50 / 50 |
+| Case studies | **PASS** | 160 tagged `[Case Study]` with **Context** blocks |
+| Days 6–10 per-file count | **PASS** | 50 / 50 / 50 / 50 / 50 |
 | Duplicate stems | **PASS** | 0 duplicate `**Select all that apply.**` in new files |
+| Option order shuffled | **PASS** | 2026-06-27 — `scripts/shuffle-options.js` (deterministic per-question seed) |
 
 **Overall status: PASS — ready for exam practice**
 
@@ -41,7 +42,8 @@
 | [day-07-questions.md](./day-07-questions.md) | [answer-key/day-07-answers.md](./answer-key/day-07-answers.md) | 50 | 24 | 15 | 21 | 14 |
 | [day-08-questions.md](./day-08-questions.md) | [answer-key/day-08-answers.md](./answer-key/day-08-answers.md) | 50 | 24 | 15 | 21 | 14 |
 | [day-09-questions.md](./day-09-questions.md) | [answer-key/day-09-answers.md](./answer-key/day-09-answers.md) | 50 | 25 | 15 | 21 | 14 |
-| **Total** | | **300** | **136** | **93** | **118** | **89** |
+| [day-10-questions.md](./day-10-questions.md) | [answer-key/day-10-answers.md](./answer-key/day-10-answers.md) | 50 | 24 | 14 | 29 | 7 |
+| **Total** | | **350** | **160** | **107** | **147** | **96** |
 
 ---
 
@@ -125,6 +127,31 @@ Days 6–9 difficulty targets ~10/10/10 per file; actual ~9/13/8 — acceptable 
 | Safe deploy / chaos / game day | Q23, Q25, Q30 |
 | Defense in depth | Q24, Q26, Q29 |
 
+### API Gateway & Service Discovery (day-10)
+
+| Topic | Question IDs |
+|-------|--------------|
+| Monolith vs microservices | Q01–Q05 |
+| Service communication (REST, gRPC, GraphQL) | Q06–Q10 |
+| Why API gateway / BFF | Q11–Q14 |
+| Gateway responsibilities | Q15–Q19 |
+| Routing, LB, canary, gRPC LB | Q20–Q24 |
+| Auth at gateway | Q25–Q29 |
+| Rate limiting | Q30–Q33 |
+| Service discovery | Q34–Q38 |
+| Client vs server-side discovery | Q39–Q42 |
+| Health checks | Q43–Q46 |
+| Service mesh | Q47–Q49 |
+| End-to-end order flow | Q50 |
+
+---
+
+## Day 10 Generation Notes
+
+| File | Arc company | Themes covered |
+|------|-------------|----------------|
+| day-10 | **CloudMart** | Gateway routing, JWT/API keys, rate limits, K8s discovery, mesh, north-south |
+
 ---
 
 ## Prior Fixes (Days 1–5)
@@ -143,7 +170,7 @@ From `assessments/`:
 ```bash
 node -e "
 const fs=require('fs');
-const days=['01','02','03','04','05','06','07','08','09'];
+const days=['01','02','03','04','05','06','07','08','09','10'];
 let n=0, issues=[];
 for(const d of days){
   const q=fs.readFileSync('day-'+d+'-questions.md','utf8');
@@ -158,9 +185,18 @@ console.log('Total:',n, issues.length?issues:'PASS');
 "
 ```
 
-1. Confirm 220 questions and 220 answer entries.
+1. Confirm 350 questions and 350 answer entries.
 2. Confirm no `**Answer:**` in `day-*-questions.md`.
-3. Confirm 220 `**Explanation:**` in answer-key files.
+3. Confirm 350 `**Explanation:**` in answer-key files.
 4. Spot-check Q/A pairs against `docs/day-XX/` lesson content.
+
+### Shuffle option order (reduce position bias)
+
+```bash
+node scripts/shuffle-options.js          # all days
+node scripts/shuffle-options.js 07 08 09  # specific days
+```
+
+Uses a deterministic seed per question (`day * 1000 + Q number`) so re-runs are reproducible.
 
 **Status: Validated and ready for study.**

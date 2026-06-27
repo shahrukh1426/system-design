@@ -1,8 +1,8 @@
-# System Design MCQ Bank — Days 1–9 Topics
+# System Design MCQ Bank — Days 1–10 Topics
 
-300 **multi-select** practice questions (select all that apply). Each question has **two or more** correct answers.
+350 **multi-select** practice questions (select all that apply). Each question has **two or more** correct answers.
 
-Questions are **real-world**, **scenario-based**, and include **136 case studies** with a business context block. No course-meta framing ("according to the curriculum", "Day 3", etc.).
+Questions are **real-world**, **scenario-based**, and include **160 case studies** with a business context block. No course-meta framing ("according to the curriculum", "Day 3", etc.).
 
 Validated: [validation-report.md](./validation-report.md)
 
@@ -24,10 +24,10 @@ Validated: [validation-report.md](./validation-report.md)
 
 ```
 assessments/
-├── day-01-questions.md … day-09-questions.md   ← questions only
+├── day-01-questions.md … day-10-questions.md   ← questions only
 ├── answer-key/
 │   ├── README.md
-│   └── day-01-answers.md … day-09-answers.md   ← answers + explanations
+│   └── day-01-answers.md … day-10-answers.md   ← answers + explanations
 ├── README.md
 └── validation-report.md
 ```
@@ -45,7 +45,8 @@ assessments/
 | [day-07-questions.md](./day-07-questions.md) → [answers](./answer-key/day-07-answers.md) | Caching Deep Dive | 50 | 24 | 15 | 21 | 14 |
 | [day-08-questions.md](./day-08-questions.md) → [answers](./answer-key/day-08-answers.md) | Message Queues Deep Dive | 50 | 24 | 15 | 21 | 14 |
 | [day-09-questions.md](./day-09-questions.md) → [answers](./answer-key/day-09-answers.md) | Reliability & Fault Tolerance | 50 | 25 | 15 | 21 | 14 |
-| **Total** | | **300** | **136** | **93** | **118** | **89** |
+| [day-10-questions.md](./day-10-questions.md) → [answers](./answer-key/day-10-answers.md) | API Gateway & Service Discovery | 50 | 24 | 14 | 29 | 7 |
+| **Total** | | **350** | **160** | **107** | **147** | **96** |
 
 ---
 
@@ -62,12 +63,13 @@ Several questions reuse fictional companies so you can follow a narrative arc:
 | **LedgerFlow** | day-06 | Indexes, transactions, replication, sharding |
 | **EventPipe** | day-08 | Video pipeline, partitions, DLQ, outbox |
 | **UptimeCorp** | day-09 | Circuit breaker, SLO burn, failover, game days |
+| **CloudMart** | day-10 | API gateway, discovery, mesh, north-south traffic |
 
 ---
 
 ## Recommended Study Order
 
-### By topic (follows docs/day-01 → day-09)
+### By topic (follows docs/day-01 → day-10)
 
 1. [Foundations & URL Shortener](./day-01-questions.md)
 2. [Design Disciplines](./day-02-questions.md)
@@ -78,6 +80,7 @@ Several questions reuse fictional companies so you can follow a narrative arc:
 7. [Caching Deep Dive](./day-07-questions.md)
 8. [Message Queues Deep Dive](./day-08-questions.md)
 9. [Reliability & Fault Tolerance](./day-09-questions.md)
+10. [API Gateway & Service Discovery](./day-10-questions.md)
 
 ### By difficulty
 
@@ -92,6 +95,7 @@ Several questions reuse fictional companies so you can follow a narrative arc:
 - [Database Internals](./day-06-questions.md) — indexes, transactions, N+1, sharding  
 - [Caching Deep Dive](./day-07-questions.md) — patterns, invalidation, stampede  
 - [Reliability & Fault Tolerance](./day-09-questions.md) — timeouts, breaker, SLO  
+- [API Gateway & Service Discovery](./day-10-questions.md) — gateway, discovery, mesh  
 
 ---
 
@@ -117,6 +121,9 @@ Several questions reuse fictional companies so you can follow a narrative arc:
 | Timeouts, retries, circuit breaker | day-09 | Q09, Q11, Q13 |
 | Bulkhead, degradation, DR | day-09 | Q15, Q17, Q19 |
 | SLI/SLO, chaos, game days | day-09 | Q21, Q25, Q30 |
+| Gateway, auth, rate limits | day-10 | Q11–Q13, Q25–Q30 |
+| Service discovery, health checks | day-10 | Q34–Q38, Q43–Q46 |
+| Mesh, north-south vs east-west | day-10 | Q47–Q49, Q50 |
 
 ---
 
@@ -127,12 +134,14 @@ Several questions reuse fictional companies so you can follow a narrative arc:
 3. Check the matching file in [answer-key/](./answer-key/) (e.g. [day-06-answers.md](./answer-key/day-06-answers.md)).
 4. Read **Explanation** for any missed questions; review `docs/day-XX/` for that topic.
 
+Option order is shuffled per question so correct answers are not predictable by position (e.g. "always pick A"). To re-shuffle after editing questions, run `node scripts/shuffle-options.js` from this folder.
+
 ---
 
 ## Source Material
 
 Questions are grounded in topics from:
 
-- [docs/day-01/](../docs/day-01/) through [docs/day-09/](../docs/day-09/)
+- [docs/day-01/](../docs/day-01/) through [docs/day-10/](../docs/day-10/)
 
 Lesson links are not embedded in questions — use the docs index when you need to reread a topic.

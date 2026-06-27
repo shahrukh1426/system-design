@@ -4,9 +4,12 @@ Multi-select format: each question has **two or more** correct answers. Question
 
 > **Answers and explanations:** see [answer-key/day-07-answers.md](./answer-key/day-07-answers.md)
 
+
 ---
 
 ### Q01 [Easy] [Case Study] — RetailHub Product Page Load
+
+
 
 **Context:** RetailHub serves 50,000 product page reads per second. Each uncached read hits PostgreSQL (~15 ms). P95 user-facing latency target is under 50 ms.
 
@@ -14,14 +17,16 @@ Multi-select format: each question has **two or more** correct answers. Question
 
 Why is application-level caching appropriate here?
 
-- [ ] A. Product catalog data is read far more often than it is updated
-- [ ] B. RAM access (~microseconds to low milliseconds for Redis) is orders of magnitude faster than a DB round trip
+- [ ] A. A 95% cache hit rate reduces DB read load to roughly 5% of request volume
+- [ ] B. Product catalog data is read far more often than it is updated
 - [ ] C. Caching replaces PostgreSQL as the source of truth for orders and payments
-- [ ] D. A 95% cache hit rate reduces DB read load to roughly 5% of request volume
+- [ ] D. RAM access (~microseconds to low milliseconds for Redis) is orders of magnitude faster than a DB round trip
 
 ---
 
 ### Q02 [Easy] — Cache vs Database
+
+
 
 **Select all that apply.**
 
@@ -36,20 +41,24 @@ Which distinguish a cache from a database?
 
 ### Q03 [Easy] [Case Study] — RetailHub Static Assets
 
+
+
 **Context:** RetailHub's `app.js` (2 MB) is served from origin on every visit. CDN hit ratio is 0%. Browser cache headers are missing.
 
 **Select all that apply.**
 
 Which layers should catch static asset traffic?
 
-- [ ] A. Answer as close to the user as possible — browser and CDN before origin
-- [ ] B. Browser cache with long `Cache-Control: max-age` for versioned static files
-- [ ] C. CDN edge cache closer to users than the origin datacenter
-- [ ] D. Load balancer internal pass-through replaces browser and CDN caching
+- [ ] A. CDN edge cache closer to users than the origin datacenter
+- [ ] B. Load balancer internal pass-through replaces browser and CDN caching
+- [ ] C. Answer as close to the user as possible — browser and CDN before origin
+- [ ] D. Browser cache with long `Cache-Control: max-age` for versioned static files
 
 ---
 
 ### Q04 [Easy] — What Not to Cache
+
+
 
 **Select all that apply.**
 
@@ -64,33 +73,39 @@ Which data should NOT be served from cache for the authoritative write path?
 
 ### Q05 [Easy] [Case Study] — RetailHub Session Store
 
+
+
 **Context:** RetailHub runs 40 stateless API pods behind a load balancer. Sessions were stored in pod memory — users lose login when routed to another pod.
 
 **Select all that apply.**
 
 What fixes session stickiness across instances?
 
-- [ ] A. Centralized Redis for shared session storage
-- [ ] B. JWT in client cookie (stateless auth) instead of server memory
-- [ ] C. In-process cache on each pod without shared invalidation
-- [ ] D. Same Redis key namespace across all app servers (`session:{id}`)
+- [ ] A. In-process cache on each pod without shared invalidation
+- [ ] B. Same Redis key namespace across all app servers (`session:{id}`)
+- [ ] C. Centralized Redis for shared session storage
+- [ ] D. JWT in client cookie (stateless auth) instead of server memory
 
 ---
 
 ### Q06 [Easy] — Cache Key Design
+
+
 
 **Select all that apply.**
 
 Which cache key practices improve hit rate and operability?
 
 - [ ] A. Namespace keys: `{service}:{entity}:{id}:{variant}`
-- [ ] B. Shared keys for shared data (`product:12345`) serve all users with one entry
-- [ ] C. Per-user keys for fully personalized feeds (`feed:user:789`) usually have poor reuse
-- [ ] D. Unbounded unique keys for every request maximize hit rate
+- [ ] B. Unbounded unique keys for every request maximize hit rate
+- [ ] C. Shared keys for shared data (`product:12345`) serve all users with one entry
+- [ ] D. Per-user keys for fully personalized feeds (`feed:user:789`) usually have poor reuse
 
 ---
 
 ### Q07 [Medium] [Case Study] — RetailHub Cache-Aside Read Path
+
+
 
 **Context:** RetailHub uses cache-aside for product pages: check Redis → on miss query PostgreSQL → populate Redis → return. Hit rate is 94%.
 
@@ -107,6 +122,8 @@ Which statements about this pattern are correct?
 
 ### Q08 [Medium] — Cache-Aside Write Path
 
+
+
 **Select all that apply.**
 
 An admin updates a product price in PostgreSQL. RetailHub uses cache-aside. What should happen?
@@ -120,33 +137,39 @@ An admin updates a product price in PostgreSQL. RetailHub uses cache-aside. What
 
 ### Q09 [Medium] [Case Study] — RetailHub Profile Settings
 
+
+
 **Context:** Users edit profile settings and immediately reload the page. Stale names appear for up to 5 minutes when only TTL is used without invalidation.
 
 **Select all that apply.**
 
 When is write-through caching a better fit than cache-aside?
 
-- [ ] A. Post-write reads must see fresh data immediately with simple read path
-- [ ] B. Write volume is low and keys are hot after update
-- [ ] C. Every write to cold keys that are never read — write-through is most efficient
-- [ ] D. Write-through synchronously updates cache and DB on each write
+- [ ] A. Every write to cold keys that are never read — write-through is most efficient
+- [ ] B. Write-through synchronously updates cache and DB on each write
+- [ ] C. Post-write reads must see fresh data immediately with simple read path
+- [ ] D. Write volume is low and keys are hot after update
 
 ---
 
 ### Q10 [Medium] — Write-Back Cache Risks
+
+
 
 **Select all that apply.**
 
 RetailHub considers write-back for like counters on product pages. Which are valid?
 
 - [ ] A. Writes go to cache first; DB flush is asynchronous — fastest write path
-- [ ] B. Suitable for non-critical counters where brief loss on crash is acceptable with durable queue/WAL
-- [ ] C. Write-back is ideal for payment authorization and inventory deduction without durable flush
-- [ ] D. Write-back provides the weakest consistency of the three main write patterns
+- [ ] B. Write-back provides the weakest consistency of the three main write patterns
+- [ ] C. Suitable for non-critical counters where brief loss on crash is acceptable with durable queue/WAL
+- [ ] D. Write-back is ideal for payment authorization and inventory deduction without durable flush
 
 ---
 
 ### Q11 [Medium] [Case Study] — RetailHub Admin Price Update
+
+
 
 **Context:** Admin changes product price from $29.99 to $19.99. Redis key is deleted after DB commit. CDN still shows $29.99 for 10 minutes. Users complain checkout charges $19.99 but listing shows old price.
 
@@ -163,6 +186,8 @@ What does this incident reveal about invalidation?
 
 ### Q12 [Medium] — TTL Best Practices
 
+
+
 **Select all that apply.**
 
 Which TTL practices reduce stampedes and stale data risk?
@@ -176,20 +201,24 @@ Which TTL practices reduce stampedes and stale data risk?
 
 ### Q13 [Medium] [Case Study] — RetailHub Black Friday Stampede
 
+
+
 **Context:** RetailHub's `#1 deal` product key expires at midnight. At expiry, 80,000 concurrent requests miss Redis simultaneously. PostgreSQL CPU hits 100% for 90 seconds.
 
 **Select all that apply.**
 
 What describes this failure and valid fixes?
 
-- [ ] A. Cache stampede (thundering herd) — hot key expiry triggers mass DB load
-- [ ] B. TTL jitter, singleflight/lock on miss, or refresh-ahead before expiry reduce stampede
-- [ ] C. This is cache penetration — attackers querying non-existent keys
-- [ ] D. Probabilistic early refresh or stale-while-revalidate can smooth hot-key expiry
+- [ ] A. TTL jitter, singleflight/lock on miss, or refresh-ahead before expiry reduce stampede
+- [ ] B. Cache stampede (thundering herd) — hot key expiry triggers mass DB load
+- [ ] C. Probabilistic early refresh or stale-while-revalidate can smooth hot-key expiry
+- [ ] D. This is cache penetration — attackers querying non-existent keys
 
 ---
 
 ### Q14 [Medium] — Cache Penetration
+
+
 
 An attacker scans `/product/-1` through `/product/-999999`. Every ID misses cache and hits DB.
 
@@ -206,20 +235,24 @@ Which mitigations apply?
 
 ### Q15 [Hard] [Case Study] — RetailHub Redis Restart
 
+
+
 **Context:** RetailHub deploys Redis with no persistence. After restart the cache is empty. DB QPS jumps 20× and checkout errors spike for 3 minutes.
 
 **Select all that apply.**
 
 What failure mode is this and how to prevent it?
 
-- [ ] A. Cache avalanche — entire cache layer empty causes DB overload
-- [ ] B. Cache warming before enabling traffic and HA Redis (replicas, Sentinel) reduce blast radius
-- [ ] C. Circuit breaker on DB path and graceful degradation during warm-up
-- [ ] D. Redis restart never affects DB load if cache-aside is used correctly
+- [ ] A. Redis restart never affects DB load if cache-aside is used correctly
+- [ ] B. Circuit breaker on DB path and graceful degradation during warm-up
+- [ ] C. Cache warming before enabling traffic and HA Redis (replicas, Sentinel) reduce blast radius
+- [ ] D. Cache avalanche — entire cache layer empty causes DB overload
 
 ---
 
 ### Q16 [Hard] — Distributed Cache Architecture
+
+
 
 **Select all that apply.**
 
@@ -234,20 +267,24 @@ RetailHub scales Redis beyond one node's RAM. Which statements are correct?
 
 ### Q17 [Hard] [Case Study] — RetailHub Hot Celebrity Product
 
+
+
 **Context:** A celebrity tweet drives 120,000 req/s to one product ID. Single Redis node CPU saturates on that key.
 
 **Select all that apply.**
 
 Which techniques address hot-key saturation?
 
-- [ ] A. Local in-process cache for the hot key on each app server
-- [ ] B. Read replicas for Redis or key splitting / random suffix read aggregation
+- [ ] A. Adding more Redis shards without changing key design always splits one hot key automatically
+- [ ] B. Local in-process cache for the hot key on each app server
 - [ ] C. CDN cache for public product page HTML/JSON at the edge
-- [ ] D. Adding more Redis shards without changing key design always splits one hot key automatically
+- [ ] D. Read replicas for Redis or key splitting / random suffix read aggregation
 
 ---
 
 ### Q18 [Hard] — Read-Through vs Cache-Aside
+
+
 
 **Select all that apply.**
 
@@ -262,18 +299,22 @@ Which compare read-through and cache-aside?
 
 ### Q19 [Easy] — Multi-Layer Cache Stack
 
+
+
 **Select all that apply.**
 
 For `GET /api/public/categories`, which layers may participate?
 
-- [ ] A. Browser cache (if Cache-Control allows)
-- [ ] B. CDN edge cache for cacheable public JSON
-- [ ] C. Redis application cache for category tree
-- [ ] D. MySQL 8.0 built-in query cache replaces Redis
+- [ ] A. Redis application cache for category tree
+- [ ] B. MySQL 8.0 built-in query cache replaces Redis
+- [ ] C. Browser cache (if Cache-Control allows)
+- [ ] D. CDN edge cache for cacheable public JSON
 
 ---
 
 ### Q20 [Easy] [Case Study] — RetailHub Rate Limit Counter
+
+
 
 **Context:** RetailHub tracks API rate limits per API key in Redis with 60-second TTL counters. Keys are `ratelimit:{key}:{minute}`.
 
@@ -290,18 +331,22 @@ Why is Redis appropriate here?
 
 ### Q21 [Medium] — Write-Through vs Cache-Aside Writes
 
+
+
 **Select all that apply.**
 
 Compare write paths for a low-write, high-read product catalog.
 
-- [ ] A. Cache-aside write: DB update + DELETE cache key — fewer writes to cache for cold keys
-- [ ] B. Write-through write: DB update + SET cache key — every write updates cache synchronously
+- [ ] A. Write-through is the default pattern for all workloads worldwide
+- [ ] B. Cache-aside write: DB update + DELETE cache key — fewer writes to cache for cold keys
 - [ ] C. Write-through adds write latency but simplifies post-update read consistency
-- [ ] D. Write-through is the default pattern for all workloads worldwide
+- [ ] D. Write-through write: DB update + SET cache key — every write updates cache synchronously
 
 ---
 
 ### Q22 [Medium] [Case Study] — RetailHub Display Balance
+
+
 
 **Context:** RetailHub shows approximate account balance on the dashboard with 30-second Redis TTL. Actual transfers always read balance from PostgreSQL with row lock.
 
@@ -318,18 +363,22 @@ When is display-only caching acceptable?
 
 ### Q23 [Medium] — HTTP Cache Headers
 
+
+
 **Select all that apply.**
 
 Which Cache-Control directives are correct?
 
-- [ ] A. `public, max-age=31536000` for fingerprinted static assets
-- [ ] B. `private` — browser only, not shared CDN cache
-- [ ] C. `s-maxage=300` overrides shared cache TTL for CDN while browser may revalidate sooner
-- [ ] D. `no-store` for sensitive responses that must not persist in any cache
+- [ ] A. `s-maxage=300` overrides shared cache TTL for CDN while browser may revalidate sooner
+- [ ] B. `no-store` for sensitive responses that must not persist in any cache
+- [ ] C. `public, max-age=31536000` for fingerprinted static assets
+- [ ] D. `private` — browser only, not shared CDN cache
 
 ---
 
 ### Q24 [Medium] [Case Study] — RetailHub Deploy Cold Start
+
+
 
 **Context:** After each deploy Redis is empty. SRE wants to preload top 5,000 product keys before shifting traffic.
 
@@ -346,33 +395,39 @@ What practice is this and why?
 
 ### Q25 [Hard] — Refresh-Ahead Pattern
 
+
+
 RetailHub's homepage hero product uses 60-minute TTL. At 54 minutes a background job refreshes the key.
 
 **Select all that apply.**
 
 Which statements are correct?
 
-- [ ] A. Refresh-ahead prevents expiry-time stampede on hot keys
-- [ ] B. Refresh-ahead is ongoing proactive refresh; cache warming is typically one-time at startup/deploy
-- [ ] C. Refresh-ahead and cache warming are identical operations
-- [ ] D. Users never see stale data during refresh-ahead — always zero staleness
+- [ ] A. Refresh-ahead and cache warming are identical operations
+- [ ] B. Users never see stale data during refresh-ahead — always zero staleness
+- [ ] C. Refresh-ahead prevents expiry-time stampede on hot keys
+- [ ] D. Refresh-ahead is ongoing proactive refresh; cache warming is typically one-time at startup/deploy
 
 ---
 
 ### Q26 [Hard] — Consistency Spectrum
+
+
 
 **Select all that apply.**
 
 Which statements about cache write patterns are correct?
 
 - [ ] A. Write-through synchronously updates cache and DB — strongest typical app-level consistency
-- [ ] B. Cache-aside with delete-on-write plus TTL is the common production default
-- [ ] C. TTL-only without invalidation on write is the strongest consistency approach
-- [ ] D. Write-back flushes to DB asynchronously — weakest consistency, highest write speed
+- [ ] B. Write-back flushes to DB asynchronously — weakest consistency, highest write speed
+- [ ] C. Cache-aside with delete-on-write plus TTL is the common production default
+- [ ] D. TTL-only without invalidation on write is the strongest consistency approach
 
 ---
 
 ### Q27 [Easy] — Monitoring Cache Health
+
+
 
 **Select all that apply.**
 
@@ -386,6 +441,8 @@ Which signals indicate a broken cache layer?
 ---
 
 ### Q28 [Medium] [Case Study] — RetailHub Big Product JSON
+
+
 
 **Context:** One Redis key stores 8 MB JSON for a product with 10,000 SKUs. Redis latency spikes block other commands on the single-threaded primary.
 
@@ -402,20 +459,24 @@ What fixes apply?
 
 ### Q29 [Hard] [Case Study] — RetailHub Invalidation Race
 
+
+
 **Context:** Thread A commits price update and deletes cache. Thread B misses cache, reads stale value from read replica with 200 ms lag, writes old price back to Redis.
 
 **Select all that apply.**
 
 How to reduce stale repopulation races?
 
-- [ ] A. Delete cache after DB commit on primary, not before
-- [ ] B. Read from primary on cache miss for recently updated keys, or use version in cache value
-- [ ] C. Delete cache before DB commit — always safe
-- [ ] D. Event-based invalidation across services still has small eventual lag to design for
+- [ ] A. Read from primary on cache miss for recently updated keys, or use version in cache value
+- [ ] B. Delete cache after DB commit on primary, not before
+- [ ] C. Event-based invalidation across services still has small eventual lag to design for
+- [ ] D. Delete cache before DB commit — always safe
 
 ---
 
 ### Q30 [Hard] — Circuit Breaker During Cache Outage
+
+
 
 Redis fails during Black Friday. RetailHub's DB cannot absorb full read load.
 
@@ -432,6 +493,8 @@ Which degradation strategies apply?
 
 ### Q31 [Easy] [Case Study] — RetailHub ETag Revalidation
 
+
+
 **Context:** RetailHub's category API returns 500 KB JSON. Clients re-fetch the full body on every visit even though categories change rarely.
 
 **Select all that apply.**
@@ -447,6 +510,8 @@ Which caching techniques reduce bandwidth and origin load?
 
 ### Q32 [Easy] — Stale-While-Revalidate
 
+
+
 **Select all that apply.**
 
 Which statements about stale-while-revalidate (SWR) are correct?
@@ -460,20 +525,24 @@ Which statements about stale-while-revalidate (SWR) are correct?
 
 ### Q33 [Easy] [Case Study] — RetailHub Eviction Under Memory Pressure
 
+
+
 **Context:** Redis hits `maxmemory` with `allkeys-lru`. Hit rate drops from 92% to 61% as popular product keys are evicted alongside cold keys.
 
 **Select all that apply.**
 
 What explains this and what should ops do?
 
-- [ ] A. Memory pressure triggers eviction — hot keys can be evicted under `allkeys-lru`
-- [ ] B. Monitor memory usage, eviction rate, and choose an appropriate `maxmemory-policy`
-- [ ] C. `allkeys-lru` perfectly preserves every hot key regardless of memory pressure
-- [ ] D. Separate tiers, reserved memory, or key design may be needed for hot data
+- [ ] A. Monitor memory usage, eviction rate, and choose an appropriate `maxmemory-policy`
+- [ ] B. Memory pressure triggers eviction — hot keys can be evicted under `allkeys-lru`
+- [ ] C. Separate tiers, reserved memory, or key design may be needed for hot data
+- [ ] D. `allkeys-lru` perfectly preserves every hot key regardless of memory pressure
 
 ---
 
 ### Q34 [Easy] — Memcached vs Redis
+
+
 
 **Select all that apply.**
 
@@ -488,20 +557,24 @@ When choosing a distributed cache technology, which comparisons are correct?
 
 ### Q35 [Easy] [Case Study] — RetailHub Double Cache Populate
 
+
+
 **Context:** Two threads miss the same product key simultaneously. Both query PostgreSQL and both `SET` Redis with the same value.
 
 **Select all that apply.**
 
 What describes this race and valid mitigations?
 
-- [ ] A. Singleflight / miss coalescing prevents duplicate DB loads for the same key
-- [ ] B. The race may not corrupt data but still wastes DB capacity under load
-- [ ] C. Double populate always corrupts cache values with conflicting data
-- [ ] D. Lock-based miss coalescing is a standard stampede mitigation technique
+- [ ] A. Lock-based miss coalescing is a standard stampede mitigation technique
+- [ ] B. Double populate always corrupts cache values with conflicting data
+- [ ] C. The race may not corrupt data but still wastes DB capacity under load
+- [ ] D. Singleflight / miss coalescing prevents duplicate DB loads for the same key
 
 ---
 
 ### Q36 [Easy] — CDN Purge and Versioned Assets
+
+
 
 **Select all that apply.**
 
@@ -516,20 +589,24 @@ Which practices keep CDN content fresh after deploys?
 
 ### Q37 [Medium] [Case Study] — RetailHub Mixed Personalization
 
+
+
 **Context:** RetailHub's homepage combines a public hero banner (shared) with per-user recommendations. One cache key for the full HTML minimizes code complexity.
 
 **Select all that apply.**
 
 What is sound cache design here?
 
-- [ ] A. Cache public fragments at CDN/Redis with shared keys
-- [ ] B. Per-user sections need short TTL, separate API calls, or edge-side composition
+- [ ] A. Split cacheable vs non-cacheable fragments — not all-or-nothing page caching
+- [ ] B. Cache public fragments at CDN/Redis with shared keys
 - [ ] C. One shared cache key for the full personalized page maximizes hit rate
-- [ ] D. Split cacheable vs non-cacheable fragments — not all-or-nothing page caching
+- [ ] D. Per-user sections need short TTL, separate API calls, or edge-side composition
 
 ---
 
 ### Q38 [Medium] — Redis Persistence Trade-offs
+
+
 
 **Select all that apply.**
 
@@ -544,20 +621,24 @@ Which statements about Redis persistence are correct?
 
 ### Q39 [Medium] [Case Study] — RetailHub Cross-Region Latency
 
+
+
 **Context:** EU users hit RetailHub's US-origin product API. P95 latency is 280 ms despite Redis at the US origin. US users see 35 ms.
 
 **Select all that apply.**
 
 What architectural responses apply?
 
-- [ ] A. Regional Redis or CDN edge caching closer to users reduces round-trip time
-- [ ] B. Cross-region cache replication adds complexity — geographic placement matters
-- [ ] C. A single US Redis cluster gives identical latency to EU and US users
-- [ ] D. Geo-routed endpoints or multi-region deployment may be required at scale
+- [ ] A. A single US Redis cluster gives identical latency to EU and US users
+- [ ] B. Geo-routed endpoints or multi-region deployment may be required at scale
+- [ ] C. Regional Redis or CDN edge caching closer to users reduces round-trip time
+- [ ] D. Cross-region cache replication adds complexity — geographic placement matters
 
 ---
 
 ### Q40 [Medium] — L1 Cache Coherency Across Pods
+
+
 
 **Select all that apply.**
 
@@ -572,20 +653,24 @@ RetailHub uses in-process L1 cache in front of Redis L2. Which statements are co
 
 ### Q41 [Medium] [Case Study] — RetailHub Flash Sale Oversell
 
+
+
 **Context:** Redis shows 5 units in stock. PostgreSQL already sold out during a race. Checkout authorized from stale cache.
 
 **Select all that apply.**
 
 What went wrong and what is correct design?
 
-- [ ] A. Authoritative inventory deduction must read/write DB with lock or atomic conditional `UPDATE`
-- [ ] B. Cache-aside stock counts used to authorize purchases are dangerous on hot inventory
-- [ ] C. Short TTL alone guarantees no oversell during flash sales
-- [ ] D. Display stock may be approximate; the purchase path must use DB truth
+- [ ] A. Short TTL alone guarantees no oversell during flash sales
+- [ ] B. Display stock may be approximate; the purchase path must use DB truth
+- [ ] C. Authoritative inventory deduction must read/write DB with lock or atomic conditional `UPDATE`
+- [ ] D. Cache-aside stock counts used to authorize purchases are dangerous on hot inventory
 
 ---
 
 ### Q42 [Medium] — HTTP Vary Header
+
+
 
 **Select all that apply.**
 
@@ -600,20 +685,24 @@ Which statements about the `Vary` response header are correct?
 
 ### Q43 [Medium] [Case Study] — RetailHub Marketing Banner SWR
 
+
+
 **Context:** Marketing updates a banner image. CDN uses `stale-while-revalidate` for one hour. Some users see the old banner briefly while a background fetch updates the edge.
 
 **Select all that apply.**
 
 When is this trade-off acceptable?
 
-- [ ] A. Acceptable for non-critical marketing visuals with known staleness window
-- [ ] B. Price, legal, or checkout-critical text should not rely on long SWR without purge
-- [ ] C. SWR guarantees users never see any stale marketing content
-- [ ] D. Pair SWR with purge or versioned URLs for important updates
+- [ ] A. SWR guarantees users never see any stale marketing content
+- [ ] B. Pair SWR with purge or versioned URLs for important updates
+- [ ] C. Acceptable for non-critical marketing visuals with known staleness window
+- [ ] D. Price, legal, or checkout-critical text should not rely on long SWR without purge
 
 ---
 
 ### Q44 [Medium] — Read-Through vs Cache-Aside Operations
+
+
 
 **Select all that apply.**
 
@@ -628,33 +717,39 @@ Which compare operational ownership of read-through vs cache-aside?
 
 ### Q45 [Hard] [Case Study] — RetailHub Simultaneous L1 Cold Start
 
+
+
 **Context:** Deploy clears L1 on all 80 API pods at once. Each pod cold-misses the top 100 keys — 8,000 concurrent PostgreSQL queries in 2 seconds.
 
 **Select all that apply.**
 
 What mitigations apply?
 
-- [ ] A. Coordinate cache warm-up or staggered traffic shift after deploy
-- [ ] B. TTL jitter on L1 prevents simultaneous cold start after every deploy
-- [ ] C. Singleflight at L2 Redis reduces duplicate DB load for shared hot keys
-- [ ] D. Canary deploy limits the fraction of pods going cold at once
+- [ ] A. Singleflight at L2 Redis reduces duplicate DB load for shared hot keys
+- [ ] B. Canary deploy limits the fraction of pods going cold at once
+- [ ] C. Coordinate cache warm-up or staggered traffic shift after deploy
+- [ ] D. TTL jitter on L1 prevents simultaneous cold start after every deploy
 
 ---
 
 ### Q46 [Hard] — Redis Cluster Behavior
+
+
 
 **Select all that apply.**
 
 Which statements about Redis Cluster are correct?
 
 - [ ] A. Cluster moves hash slots on failover — clients must handle `MOVED`/`ASK` redirects
-- [ ] B. Cross-slot multi-key transactions are limited compared to single-node Redis
-- [ ] C. Cluster automatically splits one logical hot key across nodes without key redesign
-- [ ] D. Hot-key problems remain a design concern even with horizontal sharding
+- [ ] B. Hot-key problems remain a design concern even with horizontal sharding
+- [ ] C. Cross-slot multi-key transactions are limited compared to single-node Redis
+- [ ] D. Cluster automatically splits one logical hot key across nodes without key redesign
 
 ---
 
 ### Q47 [Hard] [Case Study] — RetailHub Session PII in Redis
+
+
 
 **Context:** Redis stores session blobs containing PII. Compliance requires encryption in transit and minimal sensitive data retention.
 
@@ -671,6 +766,8 @@ Which practices apply?
 
 ### Q48 [Hard] — Negative Caching Limits
 
+
+
 **Select all that apply.**
 
 Which statements about negative (null) caching are correct?
@@ -684,20 +781,24 @@ Which statements about negative (null) caching are correct?
 
 ### Q49 [Hard] [Case Study] — RetailHub Tenant Cache Isolation
 
+
+
 **Context:** RetailHub SaaS runs multi-tenant on one Redis cluster. A bad admin script deletes keys matching `product:*` and wipes another tenant's catalog.
 
 **Select all that apply.**
 
 How should multi-tenant cache isolation work?
 
-- [ ] A. Namespace keys per tenant: `{tenant_id}:product:{id}`
-- [ ] B. ACLs or separate Redis instances/clusters for large or regulated tenants
-- [ ] C. Shared flat keyspace without tenant prefix is safest at scale
-- [ ] D. Test invalidation scripts against tenant prefix boundaries in staging
+- [ ] A. ACLs or separate Redis instances/clusters for large or regulated tenants
+- [ ] B. Namespace keys per tenant: `{tenant_id}:product:{id}`
+- [ ] C. Test invalidation scripts against tenant prefix boundaries in staging
+- [ ] D. Shared flat keyspace without tenant prefix is safest at scale
 
 ---
 
 ### Q50 [Hard] — When Not to Add Cache
+
+
 
 **Select all that apply.**
 
@@ -707,5 +808,3 @@ When is adding a cache layer a poor investment?
 - [ ] B. Every read requires strong consistency with zero staleness budget
 - [ ] C. Working set already fits in DB buffer pool with acceptable latency — cache may be premature
 - [ ] D. Every API endpoint benefits from Redis regardless of access pattern
-
----

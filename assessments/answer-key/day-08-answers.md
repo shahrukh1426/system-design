@@ -2,13 +2,14 @@
 
 Answer key for [day-08-questions.md](../day-08-questions.md)
 
+
 ---
 
 ### Q01 [Easy] [Case Study] — EventPipe Upload Acceptance
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Queue offloads slow work and enables retry. DB remains source of truth for metadata (C).
+**Explanation:** Queue offloads slow work and enables retry. DB remains source of truth for metadata (A).
 
 ---
 
@@ -22,9 +23,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q03 [Easy] [Case Study] — EventPipe Checkout Hybrid
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Sync payment decision; async side effects with retry. Payment must not be fire-and-forget (C).
+**Explanation:** Sync payment decision; async side effects with retry. Payment must not be fire-and-forget (A).
 
 ---
 
@@ -46,9 +47,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q06 [Easy] — Broker Core Components
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Partitions cap group parallelism. Extra consumers beyond partitions idle (C).
+**Explanation:** Partitions cap group parallelism. Extra consumers beyond partitions idle (D).
 
 ---
 
@@ -70,9 +71,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q09 [Medium] [Case Study] — EventPipe Duplicate Charge
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** At-least-once duplicates without idempotency (C). Ack after idempotent process.
+**Explanation:** At-least-once duplicates without idempotency (D). Ack after idempotent process.
 
 ---
 
@@ -86,9 +87,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q11 [Medium] [Case Study] — EventPipe Order State Machine
 
-**Answer:** A, C, D
+**Answer:** A, B, D
 
-**Explanation:** order_id partition key; timestamp is bad key (B). Sequence guards out-of-order retries.
+**Explanation:** order_id partition key; timestamp is bad key (C). Sequence guards out-of-order retries.
 
 ---
 
@@ -102,9 +103,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q13 [Medium] [Case Study] — EventPipe Consumer Lag
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Partition limit explains idle pods. Scaling past downstream API bottleneck does not help (C).
+**Explanation:** Partition limit explains idle pods. Scaling past downstream API bottleneck does not help (D).
 
 ---
 
@@ -118,9 +119,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q15 [Hard] [Case Study] — EventPipe Poison Message
 
-**Answer:** A, B, D
+**Answer:** A, C, D
 
-**Explanation:** DLQ + non-retryable classification + alerts. Infinite retry on bad JSON is harmful (C).
+**Explanation:** DLQ + non-retryable classification + alerts. Infinite retry on bad JSON is harmful (B).
 
 ---
 
@@ -150,9 +151,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q19 [Easy] — Sync vs Async Trade-offs
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Sync for user-visible decisions; async buffers failures. Async is eventual, not strong immediate consistency (C).
+**Explanation:** Sync for user-visible decisions; async buffers failures. Async is eventual, not strong immediate consistency (A).
 
 ---
 
@@ -166,9 +167,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q21 [Medium] — SQS Standard vs FIFO
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** FIFO orders per MessageGroupId, not globally (C).
+**Explanation:** FIFO orders per MessageGroupId, not globally (A).
 
 ---
 
@@ -198,17 +199,17 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q25 [Hard] [Case Study] — EventPipe Exactly-Once Claim
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Idempotent consumers remain mandatory. Never drop idempotency on vendor claims (C).
+**Explanation:** Idempotent consumers remain mandatory. Never drop idempotency on vendor claims (A).
 
 ---
 
 ### Q26 [Hard] — Idempotency Implementation
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Dedup table, natural idempotent updates, API keys. Ack-before-process risks loss (D).
+**Explanation:** Dedup table, natural idempotent updates, API keys. Ack-before-process risks loss (B).
 
 ---
 
@@ -230,9 +231,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q29 [Hard] — Redis Pub/Sub vs Redis Streams
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Pub/Sub ephemeral; Streams persisted. Not durable primary for payments (C).
+**Explanation:** Pub/Sub ephemeral; Streams persisted. Not durable primary for payments (D).
 
 ---
 
@@ -246,9 +247,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q31 [Easy] [Case Study] — EventPipe Schema Breaking Change
 
-**Answer:** A, B, D
+**Answer:** A, C, D
 
-**Explanation:** Version and evolve compatibly. Remove fields only after consumers updated (C).
+**Explanation:** Version and evolve compatibly. Remove fields only after consumers updated (B).
 
 ---
 
@@ -278,9 +279,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q35 [Easy] [Case Study] — EventPipe Visibility Timeout Too Short
 
-**Answer:** A, B, D
+**Answer:** A, C, D
 
-**Explanation:** Timeout must cover processing; heartbeat extends lease. Short timeout causes duplicates (C).
+**Explanation:** Timeout must cover processing; heartbeat extends lease. Short timeout causes duplicates (B).
 
 ---
 
@@ -310,9 +311,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q39 [Medium] [Case Study] — EventPipe Rebalance Storm
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Rebalance pauses consumption; limit churn; sticky/cooperative rebalance (C).
+**Explanation:** Rebalance pauses consumption; limit churn; sticky/cooperative rebalance (A).
 
 ---
 
@@ -326,17 +327,17 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q41 [Medium] [Case Study] — EventPipe Out-of-Order Events
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** State machine and sequence guards. At-least-once ≠ perfect order (C).
+**Explanation:** State machine and sequence guards. At-least-once ≠ perfect order (A).
 
 ---
 
 ### Q42 [Medium] — Task Queue Worker Semantics
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Ack-after-success, optional result backend, visibility lease. DB transactions still required (C).
+**Explanation:** Ack-after-success, optional result backend, visibility lease. DB transactions still required (D).
 
 ---
 
@@ -358,17 +359,17 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q45 [Hard] [Case Study] — EventPipe Inbox Pattern
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Inbound dedup table in same txn. Inbox is for inbound integrations (C).
+**Explanation:** Inbound dedup table in same txn. Inbox is for inbound integrations (D).
 
 ---
 
 ### Q46 [Hard] — Kafka Log Compaction
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Compacted topics for keyed state. Not instant delete-all-history (C).
+**Explanation:** Compacted topics for keyed state. Not instant delete-all-history (D).
 
 ---
 
@@ -390,9 +391,9 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 
 ### Q49 [Hard] [Case Study] — EventPipe Kafka Rolling Upgrade
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Replication and client retries for leader elections. Single broker is not production-safe (C).
+**Explanation:** Replication and client retries for leader elections. Single broker is not production-safe (D).
 
 ---
 
@@ -401,5 +402,3 @@ Answer key for [day-08-questions.md](../day-08-questions.md)
 **Answer:** A, B, C
 
 **Explanation:** Queues add ops cost; sync paths need UX for user-visible decisions. Not every call should be queued (D).
-
----

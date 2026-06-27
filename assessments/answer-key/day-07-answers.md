@@ -2,6 +2,7 @@
 
 Answer key for [day-07-questions.md](../day-07-questions.md)
 
+
 ---
 
 ### Q01 [Easy] [Case Study] — RetailHub Product Page Load
@@ -22,9 +23,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q03 [Easy] [Case Study] — RetailHub Static Assets
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Multi-layer caching from browser/CDN to origin. LBs do not replace edge/browser cache (D).
+**Explanation:** Multi-layer caching from browser/CDN to origin. LBs do not replace edge/browser cache (B).
 
 ---
 
@@ -38,17 +39,17 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q05 [Easy] [Case Study] — RetailHub Session Store
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Shared Redis or JWT for stateless fleet. Per-pod memory breaks behind LB (C).
+**Explanation:** Shared Redis or JWT for stateless fleet. Per-pod memory breaks behind LB (A).
 
 ---
 
 ### Q06 [Easy] — Cache Key Design
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Namespaced shared keys maximize reuse. Unique per-request keys never hit (D).
+**Explanation:** Namespaced shared keys maximize reuse. Unique per-request keys never hit (B).
 
 ---
 
@@ -70,17 +71,17 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q09 [Medium] [Case Study] — RetailHub Profile Settings
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Write-through fits immediate post-write reads on low-write paths. Cold-key write-through wastes RAM (C).
+**Explanation:** Write-through fits immediate post-write reads on low-write paths. Cold-key write-through wastes RAM (A).
 
 ---
 
 ### Q10 [Medium] — Write-Back Cache Risks
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Write-back is fast and eventual — not for payments/inventory without durable queue (C).
+**Explanation:** Write-back is fast and eventual — not for payments/inventory without durable queue (D).
 
 ---
 
@@ -102,9 +103,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q13 [Medium] [Case Study] — RetailHub Black Friday Stampede
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Hot-key expiry stampede — not penetration (C). Lock, jitter, refresh-ahead help.
+**Explanation:** Hot-key expiry stampede — not penetration (D). Lock, jitter, refresh-ahead help.
 
 ---
 
@@ -118,9 +119,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q15 [Hard] [Case Study] — RetailHub Redis Restart
 
-**Answer:** A, B, C
+**Answer:** B, C, D
 
-**Explanation:** Empty cache avalanche — warm-up, HA, circuit breaker. Restart absolutely spikes DB load (D).
+**Explanation:** Empty cache avalanche — warm-up, HA, circuit breaker. Restart absolutely spikes DB load (A).
 
 ---
 
@@ -134,9 +135,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q17 [Hard] [Case Study] — RetailHub Hot Celebrity Product
 
-**Answer:** A, B, C
+**Answer:** B, C, D
 
-**Explanation:** Local cache, CDN, key splitting address hot keys. Sharding alone does not split one logical key (D).
+**Explanation:** Local cache, CDN, key splitting address hot keys. Sharding alone does not split one logical key (A).
 
 ---
 
@@ -150,9 +151,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q19 [Easy] — Multi-Layer Cache Stack
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Browser, CDN, Redis layers stack. MySQL query cache removed in 8.0 (D).
+**Explanation:** Browser, CDN, Redis layers stack. MySQL query cache removed in 8.0 (B).
 
 ---
 
@@ -166,9 +167,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q21 [Medium] — Write-Through vs Cache-Aside Writes
 
-**Answer:** A, B, C
+**Answer:** B, C, D
 
-**Explanation:** Cache-aside deletes; write-through sets both. Cache-aside is default, not write-through (D).
+**Explanation:** Cache-aside deletes; write-through sets both. Cache-aside is default, not write-through (A).
 
 ---
 
@@ -198,17 +199,17 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q25 [Hard] — Refresh-Ahead Pattern
 
-**Answer:** A, B
+**Answer:** C, D
 
-**Explanation:** Proactive refresh before expiry vs one-time warm-up. Some staleness possible during refresh (D). They differ (C).
+**Explanation:** Proactive refresh before expiry vs one-time warm-up. Some staleness possible during refresh (B). They differ (A).
 
 ---
 
 ### Q26 [Hard] — Consistency Spectrum
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Write-through strongest; cache-aside default; write-back weakest/fastest. TTL-only without invalidation is weak, not strongest (C).
+**Explanation:** Write-through strongest; cache-aside default; write-back weakest/fastest. TTL-only without invalidation is weak, not strongest (D).
 
 ---
 
@@ -230,9 +231,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q29 [Hard] [Case Study] — RetailHub Invalidation Race
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Delete after commit; read primary or version on miss. Delete-before-commit worsens races (C).
+**Explanation:** Delete after commit; read primary or version on miss. Delete-before-commit worsens races (D).
 
 ---
 
@@ -262,9 +263,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q33 [Easy] [Case Study] — RetailHub Eviction Under Memory Pressure
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** LRU evicts hot keys under pressure. Monitor and tune policy — not perfect hot-key preservation (C).
+**Explanation:** LRU evicts hot keys under pressure. Monitor and tune policy — not perfect hot-key preservation (D).
 
 ---
 
@@ -278,9 +279,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q35 [Easy] [Case Study] — RetailHub Double Cache Populate
 
-**Answer:** A, B, D
+**Answer:** A, C, D
 
-**Explanation:** Miss coalescing saves DB load. Duplicate SET with same value wastes work but need not corrupt (C).
+**Explanation:** Miss coalescing saves DB load. Duplicate SET with same value wastes work but need not corrupt (B).
 
 ---
 
@@ -310,9 +311,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q39 [Medium] [Case Study] — RetailHub Cross-Region Latency
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Geo placement matters. US-only cache cannot equalize EU latency (C).
+**Explanation:** Geo placement matters. US-only cache cannot equalize EU latency (A).
 
 ---
 
@@ -326,9 +327,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q41 [Medium] [Case Study] — RetailHub Flash Sale Oversell
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Authorize stock from DB with atomic update. TTL alone does not prevent oversell (C).
+**Explanation:** Authorize stock from DB with atomic update. TTL alone does not prevent oversell (A).
 
 ---
 
@@ -342,9 +343,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q43 [Medium] [Case Study] — RetailHub Marketing Banner SWR
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** SWR OK for low-risk visuals; purge/version critical content. SWR allows staleness (C).
+**Explanation:** SWR OK for low-risk visuals; purge/version critical content. SWR allows staleness (A).
 
 ---
 
@@ -358,17 +359,17 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q45 [Hard] [Case Study] — RetailHub Simultaneous L1 Cold Start
 
-**Answer:** A, C, D
+**Answer:** A, B, C
 
-**Explanation:** Stagger warm-up/canary; L2 singleflight helps. TTL jitter does not fix simultaneous deploy cold start (B).
+**Explanation:** Stagger warm-up/canary; L2 singleflight helps. TTL jitter does not fix simultaneous deploy cold start (D).
 
 ---
 
 ### Q46 [Hard] — Redis Cluster Behavior
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Cluster slot redirects and hot-key limits. One logical key does not auto-split (C).
+**Explanation:** Cluster slot redirects and hot-key limits. One logical key does not auto-split (D).
 
 ---
 
@@ -390,9 +391,9 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 
 ### Q49 [Hard] [Case Study] — RetailHub Tenant Cache Isolation
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Tenant namespacing and isolation. Flat shared keyspace is unsafe (C).
+**Explanation:** Tenant namespacing and isolation. Flat shared keyspace is unsafe (D).
 
 ---
 
@@ -401,5 +402,3 @@ Answer key for [day-07-questions.md](../day-07-questions.md)
 **Answer:** A, B, C
 
 **Explanation:** Cache when read-heavy with staleness budget. Not universal for every endpoint (D).
-
----

@@ -2,21 +2,22 @@
 
 Answer key for [day-09-questions.md](../day-09-questions.md)
 
+
 ---
 
 ### Q01 [Easy] [Case Study] — UptimeCorp Checkout Outage
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Cascading thread exhaustion and blast radius. Speed ≠ reliability (C).
+**Explanation:** Cascading thread exhaustion and blast radius. Speed ≠ reliability (A).
 
 ---
 
 ### Q02 [Easy] — Reliability vs Performance vs Scalability
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Three distinct concerns. Scale does not imply fault tolerance (D).
+**Explanation:** Three distinct concerns. Scale does not imply fault tolerance (B).
 
 ---
 
@@ -38,15 +39,15 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q05 [Easy] [Case Study] — UptimeCorp SPOF Audit
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Single DB/Redis are SPOF. Redundant stateless app instances reduce app-tier SPOF. Multi-AZ does not remove all SPOF such as regional disaster (D).
+**Explanation:** Single DB/Redis are SPOF. Redundant stateless app instances reduce app-tier SPOF. Multi-AZ does not remove all SPOF such as regional disaster (B).
 
 ---
 
 ### Q06 [Easy] — Serial Dependency Availability
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
 **Explanation:** Serial availability multiplies down. More dependencies matter (C false).
 
@@ -70,9 +71,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q09 [Medium] [Case Study] — UptimeCorp Hung Payment Call
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Timeouts fail fast and prevent cascade. Infinite timeout unacceptable (C).
+**Explanation:** Timeouts fail fast and prevent cascade. Infinite timeout unacceptable (D).
 
 ---
 
@@ -86,9 +87,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q11 [Medium] [Case Study] — UptimeCorp Retry Storm
 
-**Answer:** A, B, D
+**Answer:** A, C, D
 
-**Explanation:** Backoff+jitter, transient-only, layer coordination. Retry forever on 503 worsens outage (C).
+**Explanation:** Backoff+jitter, transient-only, layer coordination. Retry forever on 503 worsens outage (B).
 
 ---
 
@@ -118,9 +119,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q15 [Hard] [Case Study] — UptimeCorp Bulkhead Saves Browse
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Bulkhead vs breaker distinction. Different problems (C).
+**Explanation:** Bulkhead vs breaker distinction. Different problems (A).
 
 ---
 
@@ -150,9 +151,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q19 [Easy] [Case Study] — UptimeCorp Regional Failover Drill
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Drills and tested restores. Multi-region is costly, not universal default (C).
+**Explanation:** Drills and tested restores. Multi-region is costly, not universal default (A).
 
 ---
 
@@ -166,17 +167,17 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q21 [Medium] [Case Study] — UptimeCorp Error Budget Burn
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Burn-rate alerts and budget policy; exclude client 4xx from SLI typically. Single error paging is noisy (D).
+**Explanation:** Burn-rate alerts and budget policy; exclude client 4xx from SLI typically. Single error paging is noisy (B).
 
 ---
 
 ### Q22 [Medium] — SLI Selection
 
-**Answer:** A, C, D
+**Answer:** A, B, D
 
-**Explanation:** User-journey SLIs. Process-up ping insufficient alone (B).
+**Explanation:** User-journey SLIs. Process-up ping insufficient alone (C).
 
 ---
 
@@ -198,9 +199,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q25 [Hard] [Case Study] — UptimeCorp Chaos Experiment
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Hypothesis-driven chaos with fixes. Not uncontrolled prod chaos day one (C).
+**Explanation:** Hypothesis-driven chaos with fixes. Not uncontrolled prod chaos day one (D).
 
 ---
 
@@ -230,7 +231,7 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q29 [Hard] — Designing for Failure Checklist
 
-**Answer:** A, B, C
+**Answer:** A, B, D
 
 **Explanation:** Redundancy, idempotency, blameless postmortems. Many outages are self-inflicted deploys (D false).
 
@@ -246,9 +247,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q31 [Easy] [Case Study] — UptimeCorp DNS Outage
 
-**Answer:** A, B, C
+**Answer:** B, C, D
 
-**Explanation:** DNS is critical path. Secondary DNS helps. Low TTL has propagation/ops trade-offs (D).
+**Explanation:** DNS is critical path. Secondary DNS helps. Low TTL has propagation/ops trade-offs (A).
 
 ---
 
@@ -278,9 +279,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q35 [Easy] [Case Study] — UptimeCorp Health Check Flapping
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Tune thresholds; all backends out = outage; hysteresis on shared deps. Aggressive checks can worsen flapping (D).
+**Explanation:** Tune thresholds; all backends out = outage; hysteresis on shared deps. Aggressive checks can worsen flapping (B).
 
 ---
 
@@ -294,9 +295,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q37 [Medium] [Case Study] — UptimeCorp Hedged Requests
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Hedging cuts tail latency selectively. Can cap hedging — not blind 2× always (C).
+**Explanation:** Hedging cuts tail latency selectively. Can cap hedging — not blind 2× always (A).
 
 ---
 
@@ -310,9 +311,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q39 [Medium] [Case Study] — UptimeCorp API Rate Limiting
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Rate limits shed overload. Unlimited traffic is not HA (C).
+**Explanation:** Rate limits shed overload. Unlimited traffic is not HA (A).
 
 ---
 
@@ -326,17 +327,17 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q41 [Medium] [Case Study] — UptimeCorp Hidden Dependency Chain
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Maps and tracing reveal hidden sync chains. Docs complement — not replace — timeouts (C).
+**Explanation:** Maps and tracing reveal hidden sync chains. Docs complement — not replace — timeouts (A).
 
 ---
 
 ### Q42 [Medium] — Synthetic Monitoring
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Synthetic improves MTTD. Complements — not replaces — real-user SLIs (C).
+**Explanation:** Synthetic improves MTTD. Complements — not replaces — real-user SLIs (D).
 
 ---
 
@@ -358,9 +359,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q45 [Hard] [Case Study] — UptimeCorp Compounded Retries
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Retry budgets cap amplification. Multi-layer retry has cost (C).
+**Explanation:** Retry budgets cap amplification. Multi-layer retry has cost (D).
 
 ---
 
@@ -374,9 +375,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q47 [Hard] [Case Study] — UptimeCorp Latency SLO Miss
 
-**Answer:** A, B, D
+**Answer:** A, C, D
 
-**Explanation:** Latency SLIs catch slow degradation. Zero errors ≠ good UX (C).
+**Explanation:** Latency SLIs catch slow degradation. Zero errors ≠ good UX (B).
 
 ---
 
@@ -390,9 +391,9 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 
 ### Q49 [Hard] [Case Study] — UptimeCorp Active-Active Write Conflict
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Active-active needs conflict resolution. Partitions happen; strong consistency may need single writer (C).
+**Explanation:** Active-active needs conflict resolution. Partitions happen; strong consistency may need single writer (D).
 
 ---
 
@@ -401,5 +402,3 @@ Answer key for [day-09-questions.md](../day-09-questions.md)
 **Answer:** A, B, D
 
 **Explanation:** Blameless culture, error budgets, operational practice. 100% uptime is not realistic (C).
-
----

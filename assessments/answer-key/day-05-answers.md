@@ -2,13 +2,14 @@
 
 Answer key for [day-05-questions.md](../day-05-questions.md)
 
+
 ---
 
 ### Q01 [Easy] [Case Study] — DNS Cutover for a Replatform
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** DNS is the naming layer for migrations and can return multiple IPs. It does not replace LBs that actively health-check backends (D).
+**Explanation:** DNS is the naming layer for migrations and can return multiple IPs. It does not replace LBs that actively health-check backends (B).
 
 ---
 
@@ -22,9 +23,9 @@ Answer key for [day-05-questions.md](../day-05-questions.md)
 
 ### Q03 [Easy] [Case Study] — Black Friday at RetailHub
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** LBs distribute, health-check, and enable rolling maintenance. You still need multiple backends for redundancy and capacity (D).
+**Explanation:** LBs distribute, health-check, and enable rolling maintenance. You still need multiple backends for redundancy and capacity (B).
 
 ---
 
@@ -38,17 +39,17 @@ Answer key for [day-05-questions.md](../day-05-questions.md)
 
 ### Q05 [Easy] [Case Study] — Nginx as the Public Face of ShopCore
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Reverse proxies terminate TLS, route, and offload static files. Business logic stays in app servers (D).
+**Explanation:** Reverse proxies terminate TLS, route, and offload static files. Business logic stays in app servers (B).
 
 ---
 
 ### Q06 [Easy] [Case Study] — Global Shoppers for StaticHub
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** CDNs optimize static, cacheable content geographically. Personalized financial data should not be cached at CDN edges (D).
+**Explanation:** CDNs optimize static, cacheable content geographically. Personalized financial data should not be cached at CDN edges (B).
 
 ---
 
@@ -70,23 +71,23 @@ Answer key for [day-05-questions.md](../day-05-questions.md)
 
 ### Q09 [Easy] — When a Queue Beats a Synchronous Call
 
-**Answer:** A, B, C
+**Answer:** A, B, D
 
-**Explanation:** Queues decouple producers from consumers with persistence and DLQs. Callers return without waiting for background work (D).
+**Explanation:** Queues decouple producers from consumers with persistence and DLQs. Callers return without waiting for background work (C).
 
 ---
 
 ### Q10 [Easy] — Microservices for a 200-Engineer Org
 
-**Answer:** A, B, C
+**Answer:** A, B, D
 
-**Explanation:** Independent scale, ownership, and isolation are microservice benefits. Operational complexity increases compared to a monolith (D).
+**Explanation:** Independent scale, ownership, and isolation are microservice benefits. Operational complexity increases compared to a monolith (C).
 
 ---
 
 ### Q11 [Medium] [Case Study] — TTL Trap During Failover
 
-**Answer:** A, B, C
+**Answer:** A, B, D
 
 **Explanation:** TTL controls cache lifetime; high TTL delays propagation during cutovers. Lower TTL **before** migration reduces stale answers (D is wrong during emergencies).
 
@@ -102,17 +103,17 @@ Answer key for [day-05-questions.md](../day-05-questions.md)
 
 ### Q13 [Medium] — Nginx as Reverse Proxy and Load Balancer
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Nginx commonly combines both roles. They overlap heavily in production edge tiers (D).
+**Explanation:** Nginx commonly combines both roles. They overlap heavily in production edge tiers (B).
 
 ---
 
 ### Q14 [Medium] — CDN vs Redis for Product Pages
 
-**Answer:** A, B, C
+**Answer:** A, B, D
 
-**Explanation:** CDN and Redis operate at different layers for different content types. Production systems commonly use both (D).
+**Explanation:** CDN and Redis operate at different layers for different content types. Production systems commonly use both (C).
 
 ---
 
@@ -134,9 +135,9 @@ Answer key for [day-05-questions.md](../day-05-questions.md)
 
 ### Q17 [Medium] — Queue vs Pub/Sub vs Stream
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Queues suit task workers; pub/sub fan-out suits events; streams suit replay and high throughput. They serve different purposes (D).
+**Explanation:** Queues suit task workers; pub/sub fan-out suits events; streams suit replay and high throughput. They serve different purposes (B).
 
 ---
 
@@ -166,9 +167,9 @@ Answer key for [day-05-questions.md](../day-05-questions.md)
 
 ### Q21 [Hard] [Case Study] — Sticky Sessions During Server Loss
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Stickiness helps legacy in-memory sessions but worsens imbalance on failure. Shared session stores or stateless tokens are preferred. Stickiness is not universal (D).
+**Explanation:** Stickiness helps legacy in-memory sessions but worsens imbalance on failure. Shared session stores or stateless tokens are preferred. Stickiness is not universal (B).
 
 ---
 
@@ -176,7 +177,7 @@ Answer key for [day-05-questions.md](../day-05-questions.md)
 
 **Answer:** A, B, C, D
 
-**Explanation:** Immutable versioned filenames plus long TTL is safe; mutable filenames need purge or short TTL. Personalized APIs must not be cached at CDN (C).
+**Explanation:** Immutable versioned filenames plus long TTL is safe; mutable filenames need purge or short TTL. Personalized APIs must not be cached at CDN (A).
 
 ---
 
@@ -198,17 +199,17 @@ Answer key for [day-05-questions.md](../day-05-questions.md)
 
 ### Q25 [Hard] [Case Study] — Poison Messages in Order Email Queue
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Idempotency, safe retries, and DLQs isolate poison messages. Infinite retry blocks the queue (D).
+**Explanation:** Idempotency, safe retries, and DLQs isolate poison messages. Infinite retry blocks the queue (B).
 
 ---
 
 ### Q26 [Hard] [Case Study] — Splitting Payment from ShopMonolith
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Domain boundaries and incremental extraction reduce risk. Big-bang splits fail on edge cases and coordination (D).
+**Explanation:** Domain boundaries and incremental extraction reduce risk. Big-bang splits fail on edge cases and coordination (B).
 
 ---
 
@@ -230,9 +231,9 @@ Answer key for [day-05-questions.md](../day-05-questions.md)
 
 ### Q29 [Hard] — Redis vs Memcached for Session Store
 
-**Answer:** A, B, C
+**Answer:** A, B, D
 
-**Explanation:** Redis's structures and optional durability suit sessions and varied cache patterns. Memcached is a simpler pure cache without pub/sub (D).
+**Explanation:** Redis's structures and optional durability suit sessions and varied cache patterns. Memcached is a simpler pure cache without pub/sub (C).
 
 ---
 

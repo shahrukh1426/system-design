@@ -2,13 +2,14 @@
 
 Answer key for [day-03-questions.md](../day-03-questions.md)
 
+
 ---
 
 ### Q01 [Easy] — Modeling a Downtown Garage
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** The lot orchestrates flows; each spot owns its occupied/free state; the car holds identity. The ticket records entry — the lot calls `vacate()` on exit, not the ticket itself (D).
+**Explanation:** The lot orchestrates flows; each spot owns its occupied/free state; the car holds identity. The ticket records entry — the lot calls `vacate()` on exit, not the ticket itself (B).
 
 ---
 
@@ -22,9 +23,9 @@ Answer key for [day-03-questions.md](../day-03-questions.md)
 
 ### Q03 [Easy] [Case Study] — MVP Scope for MetroGarage
 
-**Answer:** A, C, D
+**Answer:** B, C, D
 
-**Explanation:** Payment, multi-vehicle types, and multi-lot management are out of scope for v1. Enter/exit with tickets is core (B).
+**Explanation:** Payment, multi-vehicle types, and multi-lot management are out of scope for v1. Enter/exit with tickets is core (A).
 
 ---
 
@@ -48,15 +49,15 @@ Answer key for [day-03-questions.md](../day-03-questions.md)
 
 **Answer:** A, C
 
-**Explanation:** Spots manage local state; the lot orchestrates. Searching all spots is the lot's job (B). Payment is a future extension, not v1 lot logic (D).
+**Explanation:** Spots manage local state; the lot orchestrates. Searching all spots is the lot's job (D). Payment is a future extension, not v1 lot logic (B).
 
 ---
 
 ### Q07 [Medium] [Case Study] — Production Bug: Double Booking
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Duplicate entry and double-exit are specified edge cases. Concurrent entry races require locking — the MVP defers this but production needs it (B). Zero spots means enter always fails (D).
+**Explanation:** Duplicate entry and double-exit are specified edge cases. Concurrent entry races require locking — the MVP defers this but production needs it (A). Zero spots means enter always fails (B).
 
 ---
 
@@ -78,6 +79,6 @@ Answer key for [day-03-questions.md](../day-03-questions.md)
 
 ### Q10 [Hard] [Case Study] — Clarifying a Vague Product Brief
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Single lot, tickets on entry, and license plate ID are v1 assumptions. Multi-lot and payment are explicitly deferred (D).
+**Explanation:** Single lot, tickets on entry, and license plate ID are v1 assumptions. Multi-lot and payment are explicitly deferred (B).

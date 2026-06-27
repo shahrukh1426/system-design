@@ -2,29 +2,30 @@
 
 Answer key for [day-02-questions.md](../day-02-questions.md)
 
+
 ---
 
 ### Q01 [Easy] — Architecture Review Lenses
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Capacity, observability, and refactor are core design disciplines alongside HLD, security, scalability, and others. Compiler design is unrelated to system architecture reviews (C).
+**Explanation:** Capacity, observability, and refactor are core design disciplines alongside HLD, security, scalability, and others. Compiler design is unrelated to system architecture reviews (A).
 
 ---
 
 ### Q02 [Easy] — Classifying Non-Functional Concerns
 
-**Answer:** A, C, D
+**Answer:** A, B, C
 
-**Explanation:** Scalability, security, and performance are non-functional disciplines. HLD defines structural shape — components and connections (B).
+**Explanation:** Scalability, security, and performance are non-functional disciplines. HLD defines structural shape — components and connections (D).
 
 ---
 
 ### Q03 [Easy] — What Belongs in an HLD Doc
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** HLD covers components, flows, and external systems. Index definitions are LLD or data-design detail (C).
+**Explanation:** HLD covers components, flows, and external systems. Index definitions are LLD or data-design detail (D).
 
 ---
 
@@ -38,9 +39,9 @@ Answer key for [day-02-questions.md](../day-02-questions.md)
 
 ### Q05 [Easy] — Sizing a New API
 
-**Answer:** A, B, D
+**Answer:** B, C, D
 
-**Explanation:** Capacity planning produces traffic, storage, and bandwidth estimates. Domain boundaries are HLD decisions (C).
+**Explanation:** Capacity planning produces traffic, storage, and bandwidth estimates. Domain boundaries are HLD decisions (A).
 
 ---
 
@@ -54,9 +55,9 @@ Answer key for [day-02-questions.md](../day-02-questions.md)
 
 ### Q07 [Easy] — Reliability Metrics in an SLA Discussion
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** RPO, RTO, and MTTR are recovery and reliability metrics. QPS is a throughput/capacity metric (D).
+**Explanation:** RPO, RTO, and MTTR are recovery and reliability metrics. QPS is a throughput/capacity metric (B).
 
 ---
 
@@ -78,17 +79,17 @@ Answer key for [day-02-questions.md](../day-02-questions.md)
 
 ### Q10 [Medium] [Case Study] — Greenfield Launch Checklist
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Pre-launch needs sizing, security, and observability. Refactoring a monolith that hasn't shipped yet is premature (D).
+**Explanation:** Pre-launch needs sizing, security, and observability. Refactoring a monolith that hasn't shipped yet is premature (B).
 
 ---
 
 ### Q11 [Medium] — Sync vs Async in an Order Flow
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Payment needs an immediate response; email can be async; webhooks handle async provider events. Blocking checkout on SMTP hurts latency (C).
+**Explanation:** Payment needs an immediate response; email can be async; webhooks handle async provider events. Blocking checkout on SMTP hurts latency (D).
 
 ---
 
@@ -102,25 +103,25 @@ Answer key for [day-02-questions.md](../day-02-questions.md)
 
 ### Q13 [Medium] [Case Study] — ReadStorm API Connection Exhaustion
 
-**Answer:** A, B, C
+**Answer:** A, B, D
 
-**Explanation:** Replicas, pooling, and caching address read load and connections. Sharding before measuring the real bottleneck adds unnecessary complexity (D).
+**Explanation:** Replicas, pooling, and caching address read load and connections. Sharding before measuring the real bottleneck adds unnecessary complexity (C).
 
 ---
 
 ### Q14 [Medium] — Growth Roadmap for a Successful MVP
 
-**Answer:** A, B, C
+**Answer:** A, B, D
 
-**Explanation:** Typical progression: split DB + cache → replicas + CDN → sharding/services → multi-region. Multi-region is a late stage, not the first step (D).
+**Explanation:** Typical progression: split DB + cache → replicas + CDN → sharding/services → multi-region. Multi-region is a late stage, not the first step (C).
 
 ---
 
 ### Q15 [Medium] [Case Study] — Payment Provider Outage at Checkout
 
-**Answer:** A, B, C
+**Answer:** B, C, D
 
-**Explanation:** Circuit breakers, backoff, and degradation stop cascading failure. Removing timeouts lets threads hang indefinitely (D).
+**Explanation:** Circuit breakers, backoff, and degradation stop cascading failure. Removing timeouts lets threads hang indefinitely (A).
 
 ---
 
@@ -134,25 +135,25 @@ Answer key for [day-02-questions.md](../day-02-questions.md)
 
 ### Q17 [Medium] [Case Study] — Feed vs Ledger Consistency
 
-**Answer:** A, B, D
+**Answer:** A, C, D
 
-**Explanation:** Payments need strong consistency; feeds tolerate staleness. Eventual consistency is not acceptable for bank balances (C).
+**Explanation:** Payments need strong consistency; feeds tolerate staleness. Eventual consistency is not acceptable for bank balances (B).
 
 ---
 
 ### Q18 [Medium] — Public REST API Standards
 
-**Answer:** A, B, D
+**Answer:** A, C, D
 
-**Explanation:** Nouns, pagination, and idempotency keys are REST best practices. Verb URLs are discouraged (C).
+**Explanation:** Nouns, pagination, and idempotency keys are REST best practices. Verb URLs are discouraged (B).
 
 ---
 
 ### Q19 [Medium] — Performance Tuning Priority
 
-**Answer:** A, B, C
+**Answer:** A, B, D
 
-**Explanation:** Avoid work (cache), do less work (pagination), then async — before hardware or micro-optimizations. Skipping profiling jumps to low-impact fixes (D).
+**Explanation:** Avoid work (cache), do less work (pagination), then async — before hardware or micro-optimizations. Skipping profiling jumps to low-impact fixes (C).
 
 ---
 
@@ -166,25 +167,25 @@ Answer key for [day-02-questions.md](../day-02-questions.md)
 
 ### Q21 [Hard] [Case Study] — On-Call Alert Noise at 3 AM
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** Structured logs, RED metrics, and tracing enable debugging. Alerting on 55% CPU causes fatigue — alert on user-facing symptoms like error rate and latency (D).
+**Explanation:** Structured logs, RED metrics, and tracing enable debugging. Alerting on 55% CPU causes fatigue — alert on user-facing symptoms like error rate and latency (B).
 
 ---
 
 ### Q22 [Hard] — SLO Error Budget Before a Risky Release
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
-**Explanation:** SLI/SLO/SLA hierarchy and error budgets guide release risk. Exhausted budget means focus on reliability — not ignoring it (D).
+**Explanation:** SLI/SLO/SLA hierarchy and error budgets guide release risk. Exhausted budget means focus on reliability — not ignoring it (B).
 
 ---
 
 ### Q23 [Hard] [Case Study] — Extracting Payment from a Monolith
 
-**Answer:** A, B, D
+**Answer:** A, B, C
 
-**Explanation:** Strangler fig, feature flags, and dual-write enable safe incremental migration. Big-bang rewrites miss edge cases and risk long outages (C).
+**Explanation:** Strangler fig, feature flags, and dual-write enable safe incremental migration. Big-bang rewrites miss edge cases and risk long outages (D).
 
 ---
 
@@ -214,7 +215,7 @@ Answer key for [day-02-questions.md](../day-02-questions.md)
 
 ### Q27 [Hard] — Capacity vs Scalability Planning
 
-**Answer:** A, B, C
+**Answer:** A, C, D
 
 **Explanation:** Capacity is right-sizing today; scalability is the growth roadmap. Both are needed together (D is false).
 

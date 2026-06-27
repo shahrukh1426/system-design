@@ -4,9 +4,12 @@ Multi-select format: each question has **two or more** correct answers. Question
 
 > **Answers and explanations:** see [answer-key/day-09-answers.md](./answer-key/day-09-answers.md)
 
+
 ---
 
 ### Q01 [Easy] [Case Study] — UptimeCorp Checkout Outage
+
+
 
 **Context:** UptimeCorp's payment API slows to 30 seconds. Order service threads block waiting. The entire site returns 503 even though product catalog and cart APIs are healthy.
 
@@ -14,27 +17,31 @@ Multi-select format: each question has **two or more** correct answers. Question
 
 What reliability principle was violated?
 
-- [ ] A. Slow dependency caused cascading failure — thread pool exhaustion
-- [ ] B. Reliability means surviving partial failures, not zero failures ever
-- [ ] C. Fast APIs are automatically reliable APIs
-- [ ] D. Blast radius was not limited — one dependency took down unrelated paths
+- [ ] A. Fast APIs are automatically reliable APIs
+- [ ] B. Blast radius was not limited — one dependency took down unrelated paths
+- [ ] C. Slow dependency caused cascading failure — thread pool exhaustion
+- [ ] D. Reliability means surviving partial failures, not zero failures ever
 
 ---
 
 ### Q02 [Easy] — Reliability vs Performance vs Scalability
+
+
 
 **Select all that apply.**
 
 Which distinctions are correct?
 
 - [ ] A. Performance — speed of a single request under normal conditions
-- [ ] B. Scalability — handling increased load/volume
-- [ ] C. Reliability — correct behavior when components fail
-- [ ] D. A scalable system is automatically reliable under dependency failure
+- [ ] B. A scalable system is automatically reliable under dependency failure
+- [ ] C. Scalability — handling increased load/volume
+- [ ] D. Reliability — correct behavior when components fail
 
 ---
 
 ### Q03 [Easy] [Case Study] — UptimeCorp SLA Math
+
+
 
 **Context:** UptimeCorp promises customers 99.9% availability in the SLA. Engineering targets 99.95% internally.
 
@@ -51,6 +58,8 @@ Which metric relationships are correct?
 
 ### Q04 [Easy] — RPO vs RTO
 
+
+
 **Select all that apply.**
 
 UptimeCorp defines disaster recovery targets after regional failure.
@@ -64,33 +73,39 @@ UptimeCorp defines disaster recovery targets after regional failure.
 
 ### Q05 [Easy] [Case Study] — UptimeCorp SPOF Audit
 
+
+
 **Context:** UptimeCorp runs one load balancer, one PostgreSQL primary (no replica), one Redis node, and DNS with no secondary provider.
 
 **Select all that apply.**
 
 Which are single points of failure (SPOF)?
 
-- [ ] A. Single database primary with no failover replica
-- [ ] B. Single Redis instance with no replica/Sentinel
-- [ ] C. Three stateless app servers behind one LB — app tier alone is not SPOF if any instance can serve
-- [ ] D. Multi-AZ deployment with health-checked redundant instances eliminates all SPOF without multi-region
+- [ ] A. Three stateless app servers behind one LB — app tier alone is not SPOF if any instance can serve
+- [ ] B. Multi-AZ deployment with health-checked redundant instances eliminates all SPOF without multi-region
+- [ ] C. Single database primary with no failover replica
+- [ ] D. Single Redis instance with no replica/Sentinel
 
 ---
 
 ### Q06 [Easy] — Serial Dependency Availability
+
+
 
 **Select all that apply.**
 
 Checkout calls Auth (99.9%) → Inventory (99.9%) → Payment (99.9%) synchronously in series.
 
 - [ ] A. Combined availability ≈ 0.999³ ≈ 99.7% — worse than each service alone
-- [ ] B. Parallelize, cache, or add fallbacks to reduce serial dependency risk
-- [ ] C. More sync dependencies in the critical path never affect end-to-end availability
-- [ ] D. Your SLA cannot exceed a dependency's SLA without fallback or caching
+- [ ] B. Your SLA cannot exceed a dependency's SLA without fallback or caching
+- [ ] C. Parallelize, cache, or add fallbacks to reduce serial dependency risk
+- [ ] D. More sync dependencies in the critical path never affect end-to-end availability
 
 ---
 
 ### Q07 [Medium] [Case Study] — UptimeCorp Multi-AZ Deploy
+
+
 
 **Context:** UptimeCorp runs three API instances across two availability zones behind an ALB with deep health checks (DB + Redis reachable).
 
@@ -107,6 +122,8 @@ Which HA practices apply?
 
 ### Q08 [Medium] — Active-Active vs Active-Passive
 
+
+
 **Select all that apply.**
 
 Which statements compare redundancy models?
@@ -120,20 +137,24 @@ Which statements compare redundancy models?
 
 ### Q09 [Medium] [Case Study] — UptimeCorp Hung Payment Call
 
+
+
 **Context:** UptimeCorp order service calls payment API with no timeout. Payment hangs indefinitely. 200 threads block; new checkout requests queue until timeout at the gateway.
 
 **Select all that apply.**
 
 What should UptimeCorp implement first?
 
-- [ ] A. Client timeout shorter than user-facing SLA — fail fast and free threads
-- [ ] B. Timeout is first-line defense against cascading failure
-- [ ] C. Default infinite timeout on internal calls is acceptable
-- [ ] D. Inner dependency timeouts should be shorter than outer gateway timeout budget
+- [ ] A. Timeout is first-line defense against cascading failure
+- [ ] B. Client timeout shorter than user-facing SLA — fail fast and free threads
+- [ ] C. Inner dependency timeouts should be shorter than outer gateway timeout budget
+- [ ] D. Default infinite timeout on internal calls is acceptable
 
 ---
 
 ### Q10 [Medium] — Timeout Budget
+
+
 
 **Select all that apply.**
 
@@ -148,20 +169,24 @@ User-facing checkout SLA is 5 seconds total. Order service calls three dependenc
 
 ### Q11 [Medium] [Case Study] — UptimeCorp Retry Storm
 
+
+
 **Context:** Payment API returns 503 for 30 seconds. 5,000 clients retry simultaneously every second with no backoff. Payment receives 5× normal load and stays down longer.
 
 **Select all that apply.**
 
 What fixes apply?
 
-- [ ] A. Exponential backoff with jitter on retries
-- [ ] B. Retry only transient errors (503, timeout) — not 400/401
-- [ ] C. Retry all errors including invalid payload forever
-- [ ] D. Coordinate retry budgets across layers — avoid 3×3×3 compounded attempts
+- [ ] A. Coordinate retry budgets across layers — avoid 3×3×3 compounded attempts
+- [ ] B. Retry all errors including invalid payload forever
+- [ ] C. Retry only transient errors (503, timeout) — not 400/401
+- [ ] D. Exponential backoff with jitter on retries
 
 ---
 
 ### Q12 [Medium] — Idempotent Retries
+
+
 
 **Select all that apply.**
 
@@ -176,20 +201,24 @@ UptimeCorp retries `POST /transfer` on timeout.
 
 ### Q13 [Medium] [Case Study] — UptimeCorp Circuit Opens
 
+
+
 **Context:** Payment API fails 8 times in 10 seconds. UptimeCorp's circuit breaker opens — checkout returns immediate fallback error instead of waiting 30 s per request.
 
 **Select all that apply.**
 
 Which circuit breaker facts are correct?
 
-- [ ] A. States: CLOSED → OPEN (fail fast) → HALF-OPEN (test) → CLOSED or OPEN
-- [ ] B. Stops wasted calls to a failing dependency — protects caller resources
+- [ ] A. Per-dependency circuits — payment open should not trip unrelated recommendation circuit
+- [ ] B. States: CLOSED → OPEN (fail fast) → HALF-OPEN (test) → CLOSED or OPEN
 - [ ] C. Open circuit means the payment API is fixed
-- [ ] D. Per-dependency circuits — payment open should not trip unrelated recommendation circuit
+- [ ] D. Stops wasted calls to a failing dependency — protects caller resources
 
 ---
 
 ### Q14 [Medium] — Circuit Breaker vs Retries
+
+
 
 **Select all that apply.**
 
@@ -204,20 +233,24 @@ How do retries and circuit breakers work together?
 
 ### Q15 [Hard] [Case Study] — UptimeCorp Bulkhead Saves Browse
 
+
+
 **Context:** Payment processing uses a dedicated thread pool (20 threads). Recommendations use a separate pool (30 threads). Payment slows but product browse and cart remain responsive.
 
 **Select all that apply.**
 
 What pattern is this?
 
-- [ ] A. Bulkhead — isolate resource pools so one area cannot drain the entire system
-- [ ] B. Bulkhead is proactive isolation; circuit breaker is reactive to failure rate
-- [ ] C. Bulkhead and circuit breaker solve identical problems
-- [ ] D. When bulkhead is full: fail fast (503) or bounded queue — not unbounded block
+- [ ] A. Bulkhead and circuit breaker solve identical problems
+- [ ] B. When bulkhead is full: fail fast (503) or bounded queue — not unbounded block
+- [ ] C. Bulkhead — isolate resource pools so one area cannot drain the entire system
+- [ ] D. Bulkhead is proactive isolation; circuit breaker is reactive to failure rate
 
 ---
 
 ### Q16 [Hard] — Bulkhead Types
+
+
 
 **Select all that apply.**
 
@@ -232,20 +265,24 @@ Which are bulkhead implementations?
 
 ### Q17 [Hard] [Case Study] — UptimeCorp Graceful Degradation
 
+
+
 **Context:** Recommendations service is down. UptimeCorp product pages load without "You may also like" section. Checkout and cart work normally.
 
 **Select all that apply.**
 
 Which degradation principles apply?
 
-- [ ] A. Feature tiers: core (checkout) vs optional (recommendations) — disable optional silently
-- [ ] B. Circuit breaker is mechanism; graceful degradation is policy for what UX to show
+- [ ] A. Cached or static fallback for recommendations is a valid strategy
+- [ ] B. Feature tiers: core (checkout) vs optional (recommendations) — disable optional silently
 - [ ] C. Return 500 for entire product page when optional service fails
-- [ ] D. Cached or static fallback for recommendations is a valid strategy
+- [ ] D. Circuit breaker is mechanism; graceful degradation is policy for what UX to show
 
 ---
 
 ### Q18 [Hard] — Load Shedding Priority
+
+
 
 **Select all that apply.**
 
@@ -260,20 +297,24 @@ UptimeCorp must drop traffic under extreme overload.
 
 ### Q19 [Easy] [Case Study] — UptimeCorp Regional Failover Drill
 
+
+
 **Context:** Primary region fails. Route 53 shifts traffic to secondary region. RTO target is 15 minutes; last quarter drill measured 22 minutes due to untested runbook steps.
 
 **Select all that apply.**
 
 What DR practices improve outcomes?
 
-- [ ] A. Tested runbooks and quarterly restore/failover drills reduce MTTR
-- [ ] B. Untested backup equals no backup — verify restores, not just snapshots
-- [ ] C. Multi-region is free and default for all systems regardless of tier
-- [ ] D. Automatic failover RTO often 30 s–2 min; manual avoids split-brain risk but slower
+- [ ] A. Multi-region is free and default for all systems regardless of tier
+- [ ] B. Automatic failover RTO often 30 s–2 min; manual avoids split-brain risk but slower
+- [ ] C. Tested runbooks and quarterly restore/failover drills reduce MTTR
+- [ ] D. Untested backup equals no backup — verify restores, not just snapshots
 
 ---
 
 ### Q20 [Easy] — Split-Brain Prevention
+
+
 
 **Select all that apply.**
 
@@ -288,33 +329,39 @@ During DB failover, two nodes briefly believe they are primary and accept writes
 
 ### Q21 [Medium] [Case Study] — UptimeCorp Error Budget Burn
 
+
+
 **Context:** UptimeCorp SLO is 99.95% availability (0.05% error budget ≈ 22 min/month). A bad deploy burns 12% of the monthly budget in one hour. Pager fires on fast burn rate.
 
 **Select all that apply.**
 
 Which SLO/error budget practices apply?
 
-- [ ] A. Alert on error budget burn rate — not every single 500 error
-- [ ] B. Budget exhausted → freeze risky features; focus stability
-- [ ] C. SLI measures successful valid requests — typically exclude client 4xx from availability SLI
-- [ ] D. One 500 error should always page on-call immediately
+- [ ] A. SLI measures successful valid requests — typically exclude client 4xx from availability SLI
+- [ ] B. One 500 error should always page on-call immediately
+- [ ] C. Alert on error budget burn rate — not every single 500 error
+- [ ] D. Budget exhausted → freeze risky features; focus stability
 
 ---
 
 ### Q22 [Medium] — SLI Selection
+
+
 
 **Select all that apply.**
 
 Which are valid SLIs for UptimeCorp checkout?
 
 - [ ] A. Percentage of checkout attempts completing payment within 30 seconds
-- [ ] B. Server process "up" ping alone — sufficient for user-perceived availability
-- [ ] C. P99 latency of payment API
-- [ ] D. Error rate (5xx + timeout) on checkout path
+- [ ] B. Error rate (5xx + timeout) on checkout path
+- [ ] C. Server process "up" ping alone — sufficient for user-perceived availability
+- [ ] D. P99 latency of payment API
 
 ---
 
 ### Q23 [Medium] [Case Study] — UptimeCorp Canary Deploy
+
+
 
 **Context:** UptimeCorp deploys new order service to 5% of traffic, monitors checkout SLI for 10 minutes, then rolls to 100%. SLI drops 0.3% during canary — pipeline auto-rolls back.
 
@@ -331,6 +378,8 @@ Which safe deploy practices apply?
 
 ### Q24 [Medium] — Defense in Depth Stack
 
+
+
 **Select all that apply.**
 
 UptimeCorp layers reliability patterns on the payment path.
@@ -344,20 +393,24 @@ UptimeCorp layers reliability patterns on the payment path.
 
 ### Q25 [Hard] [Case Study] — UptimeCorp Chaos Experiment
 
+
+
 **Context:** SRE kills one AZ instance during business hours. Hypothesis: "Checkout SLI stays above 99.9%." SLI drops to 98% — sessions were in pod memory.
 
 **Select all that apply.**
 
 What chaos engineering practices apply?
 
-- [ ] A. Define steady-state metric (checkout SLI) and hypothesis before injecting failure
-- [ ] B. Start with small blast radius in staging, then controlled production experiments
-- [ ] C. Chaos in full production without limits on day one is standard first step
-- [ ] D. Fix findings — move sessions to Redis; rerun experiment to validate
+- [ ] A. Start with small blast radius in staging, then controlled production experiments
+- [ ] B. Define steady-state metric (checkout SLI) and hypothesis before injecting failure
+- [ ] C. Fix findings — move sessions to Redis; rerun experiment to validate
+- [ ] D. Chaos in full production without limits on day one is standard first step
 
 ---
 
 ### Q26 [Hard] — Partial vs Total Failure
+
+
 
 **Select all that apply.**
 
@@ -372,6 +425,8 @@ Which statements about failure modes are correct?
 
 ### Q27 [Easy] — MTBF and MTTR
 
+
+
 **Select all that apply.**
 
 Availability relates to MTBF and MTTR.
@@ -384,6 +439,8 @@ Availability relates to MTBF and MTTR.
 ---
 
 ### Q28 [Medium] [Case Study] — UptimeCorp Read-Only Mode
+
+
 
 **Context:** Primary DB fails over to replica with 45-second lag. UptimeCorp enables read-only mode: browse works, checkout disabled with clear banner.
 
@@ -400,18 +457,22 @@ What degradation strategy is this?
 
 ### Q29 [Hard] — Designing for Failure Checklist
 
+
+
 **Select all that apply.**
 
 Which belong on UptimeCorp's reliability checklist?
 
-- [ ] A. Eliminate SPOF with multi-instance, multi-AZ redundancy and health checks
-- [ ] B. Idempotency on all write paths that retry (API, queue, failover)
-- [ ] C. Blameless postmortems with owned action items after incidents
-- [ ] D. Most outages are external hardware — ignore deploy pipeline quality
+- [ ] A. Idempotency on all write paths that retry (API, queue, failover)
+- [ ] B. Eliminate SPOF with multi-instance, multi-AZ redundancy and health checks
+- [ ] C. Most outages are external hardware — ignore deploy pipeline quality
+- [ ] D. Blameless postmortems with owned action items after incidents
 
 ---
 
 ### Q30 [Hard] [Case Study] — UptimeCorp Game Day
+
+
 
 **Context:** UptimeCorp simulates payment provider 503 for one hour. On-call follows runbook, enables cached fallback for order status, communicates via status page. MTTR improves 40% vs last real incident.
 
@@ -428,20 +489,24 @@ What practices does this exercise?
 
 ### Q31 [Easy] [Case Study] — UptimeCorp DNS Outage
 
+
+
 **Context:** UptimeCorp's DNS provider fails for 20 minutes. All application servers are healthy but users cannot resolve `shop.uptimecorp.com`.
 
 **Select all that apply.**
 
 What reliability lesson applies?
 
-- [ ] A. DNS is an easily overlooked single point of failure
-- [ ] B. Secondary DNS provider or failover registrar reduces risk
-- [ ] C. Healthy application servers matter little if DNS resolution fails
-- [ ] D. Very low TTL eliminates all DNS failure impact with zero trade-offs
+- [ ] A. Very low TTL eliminates all DNS failure impact with zero trade-offs
+- [ ] B. Healthy application servers matter little if DNS resolution fails
+- [ ] C. Secondary DNS provider or failover registrar reduces risk
+- [ ] D. DNS is an easily overlooked single point of failure
 
 ---
 
 ### Q32 [Easy] — Kubernetes Probe Types
+
+
 
 **Select all that apply.**
 
@@ -456,20 +521,24 @@ Which probe purposes are correct?
 
 ### Q33 [Easy] [Case Study] — UptimeCorp Post-Outage Login Surge
 
+
+
 **Context:** After a 30-minute outage, 500,000 users refresh simultaneously. Auth service is overwhelmed despite capacity for normal peak of 50,000 logins per minute.
 
 **Select all that apply.**
 
 What describes this failure mode and valid responses?
 
-- [ ] A. Recovery storm / thundering herd after incidents
-- [ ] B. Rate limiting, jittered client retry, and edge queueing help absorb the surge
+- [ ] A. Staged recovery or token-bucket limits on the login path may be required
+- [ ] B. Recovery storm / thundering herd after incidents
 - [ ] C. Steady-state peak capacity automatically handles post-outage recovery surges
-- [ ] D. Staged recovery or token-bucket limits on the login path may be required
+- [ ] D. Rate limiting, jittered client retry, and edge queueing help absorb the surge
 
 ---
 
 ### Q34 [Easy] — Classifying Dependency Failures
+
+
 
 **Select all that apply.**
 
@@ -484,20 +553,24 @@ How should UptimeCorp classify dependency failures for handling policy?
 
 ### Q35 [Easy] [Case Study] — UptimeCorp Health Check Flapping
 
+
+
 **Context:** UptimeCorp's ALB uses deep health checks including Redis reachability. A 2-second Redis blip marks all 6 instances unhealthy simultaneously — the site goes fully down.
 
 **Select all that apply.**
 
 What went wrong and what should change?
 
-- [ ] A. Unhealthy threshold and check interval tuning reduces flapping
-- [ ] B. When all backends fail health checks, the load balancer serves no traffic
-- [ ] C. Brief shared dependency blips should not drain the entire fleet without hysteresis or layered checks
-- [ ] D. More aggressive dependency checks always improve end-user reliability
+- [ ] A. Brief shared dependency blips should not drain the entire fleet without hysteresis or layered checks
+- [ ] B. More aggressive dependency checks always improve end-user reliability
+- [ ] C. Unhealthy threshold and check interval tuning reduces flapping
+- [ ] D. When all backends fail health checks, the load balancer serves no traffic
 
 ---
 
 ### Q36 [Easy] — N+1 Redundant Capacity
+
+
 
 **Select all that apply.**
 
@@ -512,20 +585,24 @@ Which capacity planning statements are correct?
 
 ### Q37 [Medium] [Case Study] — UptimeCorp Hedged Requests
 
+
+
 **Context:** UptimeCorp's search service calls two read replicas; the first response wins and the slower call is cancelled. P99 latency drops 40%.
 
 **Select all that apply.**
 
 What pattern is this and when is it appropriate?
 
-- [ ] A. Hedged requests trade extra load for tail-latency reduction
-- [ ] B. Useful when an occasional slow replica causes tail spikes
-- [ ] C. Hedging every request always doubles cost with no selective cap or benefit
-- [ ] D. Apply selectively — risky for non-idempotent writes without careful design
+- [ ] A. Hedging every request always doubles cost with no selective cap or benefit
+- [ ] B. Apply selectively — risky for non-idempotent writes without careful design
+- [ ] C. Hedged requests trade extra load for tail-latency reduction
+- [ ] D. Useful when an occasional slow replica causes tail spikes
 
 ---
 
 ### Q38 [Medium] — Fallback vs Fail Fast
+
+
 
 **Select all that apply.**
 
@@ -540,20 +617,24 @@ Which compare fallback and fail-fast strategies?
 
 ### Q39 [Medium] [Case Study] — UptimeCorp API Rate Limiting
 
+
+
 **Context:** Under a traffic spike resembling a DDoS, UptimeCorp enables per-API-key rate limits returning `429` with `Retry-After`. Core paying customers remain stable.
 
 **Select all that apply.**
 
 What reliability pattern applies?
 
-- [ ] A. Rate limiting is overload protection — a form of load shedding
-- [ ] B. `Retry-After` helps well-behaved clients back off
-- [ ] C. Accepting unlimited traffic is required for high availability
-- [ ] D. Per-tenant limits protect the shared platform from one abusive client
+- [ ] A. Accepting unlimited traffic is required for high availability
+- [ ] B. Per-tenant limits protect the shared platform from one abusive client
+- [ ] C. Rate limiting is overload protection — a form of load shedding
+- [ ] D. `Retry-After` helps well-behaved clients back off
 
 ---
 
 ### Q40 [Medium] — Blue-Green vs Rolling Deploy
+
+
 
 **Select all that apply.**
 
@@ -568,33 +649,39 @@ Which statements compare deploy strategies?
 
 ### Q41 [Medium] [Case Study] — UptimeCorp Hidden Dependency Chain
 
+
+
 **Context:** Post-incident review reveals Payment synchronously calls a legacy Fraud service nobody documented. Checkout failed when Fraud slowed.
 
 **Select all that apply.**
 
 What practices prevent surprise cascades?
 
-- [ ] A. Dependency maps and service catalogs improve blast-radius analysis
-- [ ] B. Undocumented sync chains hide cascading failure risk
-- [ ] C. Documentation alone eliminates the need for timeouts and circuit breakers
-- [ ] D. Distributed tracing reveals runtime dependencies missing from architecture diagrams
+- [ ] A. Documentation alone eliminates the need for timeouts and circuit breakers
+- [ ] B. Distributed tracing reveals runtime dependencies missing from architecture diagrams
+- [ ] C. Dependency maps and service catalogs improve blast-radius analysis
+- [ ] D. Undocumented sync chains hide cascading failure risk
 
 ---
 
 ### Q42 [Medium] — Synthetic Monitoring
+
+
 
 **Select all that apply.**
 
 Which statements about synthetic monitoring are correct?
 
 - [ ] A. External probes exercise checkout path on a schedule
-- [ ] B. Synthetic checks can detect failures before user reports — improving MTTD
-- [ ] C. Synthetic traffic fully replaces real-user metrics and SLIs
-- [ ] D. Run probes from multiple regions for geo-aware availability measurement
+- [ ] B. Run probes from multiple regions for geo-aware availability measurement
+- [ ] C. Synthetic checks can detect failures before user reports — improving MTTD
+- [ ] D. Synthetic traffic fully replaces real-user metrics and SLIs
 
 ---
 
 ### Q43 [Medium] [Case Study] — UptimeCorp Status Page Trust
+
+
 
 **Context:** During a partial checkout outage, UptimeCorp's status page shows "All systems operational." Support tickets spike and customer trust erodes.
 
@@ -611,6 +698,8 @@ What should incident communication include?
 
 ### Q44 [Medium] — Blast Radius Reduction
 
+
+
 **Select all that apply.**
 
 Which techniques limit blast radius?
@@ -624,20 +713,24 @@ Which techniques limit blast radius?
 
 ### Q45 [Hard] [Case Study] — UptimeCorp Compounded Retries
 
+
+
 **Context:** API gateway retries 3×, order service retries 3×, and mobile client retries 3×. During a payment blip, Payment receives up to 27× effective load.
 
 **Select all that apply.**
 
 What fixes apply?
 
-- [ ] A. Retry budgets per layer prevent end-to-end amplification
-- [ ] B. Server idempotency is still required, but budgets reduce load during outages
-- [ ] C. Multi-layer retries always improve reliability with zero downside
-- [ ] D. Document and cap retries end-to-end in architecture reviews
+- [ ] A. Server idempotency is still required, but budgets reduce load during outages
+- [ ] B. Retry budgets per layer prevent end-to-end amplification
+- [ ] C. Document and cap retries end-to-end in architecture reviews
+- [ ] D. Multi-layer retries always improve reliability with zero downside
 
 ---
 
 ### Q46 [Hard] — Cold, Warm, and Hot Standby
+
+
 
 **Select all that apply.**
 
@@ -652,20 +745,24 @@ Which compare disaster recovery standby models?
 
 ### Q47 [Hard] [Case Study] — UptimeCorp Latency SLO Miss
 
+
+
 **Context:** Error rate is 0.1% but checkout P99 latency SLO is breached for 2 hours. No pages fire because alerts only watch 5xx rate.
 
 **Select all that apply.**
 
 What monitoring gap exists?
 
-- [ ] A. Latency SLIs catch slow partial failures without elevated error rate
-- [ ] B. Multi-window burn alerts on latency percentiles are needed alongside availability
-- [ ] C. Zero errors means all reliability and user-experience goals are met
-- [ ] D. Tail latency degrades UX even when HTTP 5xx rate stays low
+- [ ] A. Tail latency degrades UX even when HTTP 5xx rate stays low
+- [ ] B. Zero errors means all reliability and user-experience goals are met
+- [ ] C. Multi-window burn alerts on latency percentiles are needed alongside availability
+- [ ] D. Latency SLIs catch slow partial failures without elevated error rate
 
 ---
 
 ### Q48 [Hard] — Poison Input on Sync Path
+
+
 
 **Select all that apply.**
 
@@ -680,20 +777,24 @@ A webhook handler crashes on one malformed payload in a loop. Which responses ap
 
 ### Q49 [Hard] [Case Study] — UptimeCorp Active-Active Write Conflict
 
+
+
 **Context:** Two regions accept writes during a network partition. The same user updates their profile in both regions — conflicting versions on merge.
 
 **Select all that apply.**
 
 What does active-active require?
 
-- [ ] A. Conflict resolution strategy — last-write-wins, CRDT, or primary-writer per entity
-- [ ] B. Last-write-wins may silently lose data — design consciously
-- [ ] C. Cloud networks never partition — active-active has no merge conflicts
-- [ ] D. Choose active-passive or single write region when strong consistency is mandatory
+- [ ] A. Last-write-wins may silently lose data — design consciously
+- [ ] B. Conflict resolution strategy — last-write-wins, CRDT, or primary-writer per entity
+- [ ] C. Choose active-passive or single write region when strong consistency is mandatory
+- [ ] D. Cloud networks never partition — active-active has no merge conflicts
 
 ---
 
 ### Q50 [Hard] — Reliability Culture and Operations
+
+
 
 **Select all that apply.**
 
@@ -703,5 +804,3 @@ Which belong in UptimeCorp's long-term reliability culture?
 - [ ] B. Error budgets align product velocity with measurable reliability trade-offs
 - [ ] C. 100% uptime is a realistic engineering target for all tier-1 services
 - [ ] D. Runbooks, game days, and chaos experiments convert design into operational skill
-
----
